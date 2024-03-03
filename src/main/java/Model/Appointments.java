@@ -19,7 +19,9 @@ public class Appointments {
     private int userId;
     private int contactId;
 
-    public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentID, String title, String description, String location, String type,
+                        OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy,
+                        OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;

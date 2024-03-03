@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Customers {
@@ -8,13 +9,13 @@ public class Customers {
     private String  address;
     private String  postalCode;
     private String  phone;
-    private Date createDate;
+    private OffsetDateTime createDate;
     private String  createdBy;
-    private Date lastUpdate;
+    private OffsetDateTime lastUpdate;
     private String  lastUpdatedBy;
     private int divisionId;
 
-    public Customers(int customerId, String customerName, String address, String postalCode, String phone, Date createDate, String createdBy, Date lastUpdate, String lastUpdatedBy, int divisionId) {
+    public Customers(int customerId, String customerName, String address, String postalCode, String phone, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.address = address;
@@ -67,11 +68,11 @@ public class Customers {
         this.phone = phone;
     }
 
-    public Date getCreateDate() {
+    public OffsetDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -83,11 +84,11 @@ public class Customers {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public OffsetDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

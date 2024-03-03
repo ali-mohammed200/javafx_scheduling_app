@@ -1,17 +1,18 @@
 package Model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Users {
     private int userID;
     private String userName;
     private String password;
-    private Date createDate;
+    private OffsetDateTime createDate;
     private String createdBy;
-    private Date lastUpdate;
+    private OffsetDateTime lastUpdate;
     private String lastUpdatedBy;
 
-    public Users(int userID, String userName, String password, Date createDate, String createdBy, Date lastUpdate, String lastUpdatedBy) {
+    public Users(int userID, String userName, String password, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
@@ -45,11 +46,11 @@ public class Users {
         this.password = password;
     }
 
-    public Date getCreateDate() {
+    public OffsetDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -61,11 +62,11 @@ public class Users {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public OffsetDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

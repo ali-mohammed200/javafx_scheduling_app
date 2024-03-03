@@ -1,17 +1,18 @@
 package Model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class FirstLevelDivisions {
     private int divisionId;
     private String divisionName;
-    private Date createDate;
+    private OffsetDateTime createDate;
     private String createdBy;
-    private Date lastUpdate;
+    private OffsetDateTime lastUpdate;
     private String lastUpdatedBy;
     private int countryId;
 
-    public FirstLevelDivisions(int divisionId, String divisionName, Date createDate, String createdBy, Date lastUpdate, String lastUpdatedBy, int countryId) {
+    public FirstLevelDivisions(int divisionId, String divisionName, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int countryId) {
         this.divisionId = divisionId;
         this.divisionName = divisionName;
         this.createDate = createDate;
@@ -37,11 +38,11 @@ public class FirstLevelDivisions {
         this.divisionName = divisionName;
     }
 
-    public Date getCreateDate() {
+    public OffsetDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -53,11 +54,11 @@ public class FirstLevelDivisions {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public OffsetDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

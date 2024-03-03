@@ -1,7 +1,6 @@
 package Model;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class Customers {
     private int customerId;

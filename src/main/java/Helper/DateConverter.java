@@ -1,6 +1,7 @@
 package Helper;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class DateConverter {
     private static ZoneId zoneId = ZoneId.systemDefault();
@@ -14,6 +15,10 @@ public class DateConverter {
 
     public static OffsetDateTime convertFromLocaltoUTC(OffsetDateTime ofdt){
         return ofdt.toInstant().atOffset(ZoneOffset.of("+00:00"));
+    }
+
+    public static String formatForTimestamp(OffsetDateTime ofdt) {
+        return ofdt.format((DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
     }
 
     public static void main(String[] args){

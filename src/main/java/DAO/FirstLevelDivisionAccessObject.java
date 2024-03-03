@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FirstLevelDivisionAccessObject {
-    public static ResultSet getFirstLevelDivision() throws SQLException {
+    public static ResultSet getFirstLevelDivisions() throws SQLException {
         String query = "SELECT * FROM first_level_divisions";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
@@ -15,7 +15,7 @@ public class FirstLevelDivisionAccessObject {
         return result;
     }
 
-    public static ResultSet getFirstLevelDivisionByCountry(int Country_ID) throws SQLException {
+    public static ResultSet getFirstLevelDivisionsByCountry(int Country_ID) throws SQLException {
         String query = "SELECT * FROM first_level_divisions WHERE Country_ID = ?";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);

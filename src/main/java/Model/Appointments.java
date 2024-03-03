@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class Appointments {
@@ -8,17 +9,17 @@ public class Appointments {
     private String description;
     private String location;
     private String type;
-    private Date start;
-    private Date end;
-    private Date createDate;
+    private OffsetDateTime start;
+    private OffsetDateTime end;
+    private OffsetDateTime createDate;
     private String createdBy;
-    private Date lastUpdate;
+    private OffsetDateTime lastUpdate;
     private String lastUpdatedBy;
     private int customerId;
     private int userId;
     private int contactId;
 
-    public Appointments(int appointmentID, String title, String description, String location, String type, Date start, Date end, Date createDate, String createdBy, Date lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -75,27 +76,27 @@ public class Appointments {
         this.type = type;
     }
 
-    public Date getStart() {
+    public OffsetDateTime getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(OffsetDateTime start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public OffsetDateTime getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(OffsetDateTime end) {
         this.end = end;
     }
 
-    public Date getCreateDate() {
+    public OffsetDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
     }
 
@@ -107,11 +108,11 @@ public class Appointments {
         this.createdBy = createdBy;
     }
 
-    public Date getLastUpdate() {
+    public OffsetDateTime getLastUpdate() {
         return lastUpdate;
     }
 
-    public void setLastUpdate(Date lastUpdate) {
+    public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 

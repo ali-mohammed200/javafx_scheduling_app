@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainPane" prefHeight="544.0" prefWidth="872.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+    <children>
+        <Text layoutX="46.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scheduling System">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Text>
+        <Button fx:id="exitButton" layoutX="823.0" layoutY="490.0" mnemonicParsing="false" onAction="#onExitApplication" text="Exit" />
+      <TabPane fx:id="tabPane" layoutX="14.0" layoutY="70.0" prefHeight="432.0" prefWidth="773.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab fx:id="mainTab" text="Main">
+              <content>
+                <AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+          <Tab fx:id="customerTab" text="Customers">
+            <content>
+              <AnchorPane fx:id="customerAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                          <Pane fx:id="customerPane" prefHeight="402.6666666666667" prefWidth="773.3333333333334" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <children>
+                                  <TableView fx:id="customerTable" layoutY="41.0" prefHeight="200.0" prefWidth="773.0">
+                                      <columns>
+                                          <TableColumn fx:id="cId" prefWidth="27.0" text="ID" />
+                                          <TableColumn fx:id="cName" prefWidth="88.0" text="Name" />
+                                          <TableColumn fx:id="cAddress" prefWidth="176.0" text="Address" />
+                                          <TableColumn fx:id="cPostalCode" prefWidth="92.0" text="Postal Code" />
+                                    <TableColumn fx:id="cPhone" prefWidth="75.0" text="Phone" />
+                                    <TableColumn fx:id="cDivId" prefWidth="75.0" text="Division ID" />
+                                    <TableColumn fx:id="cDivision" prefWidth="75.0" text="Division" />
+                                    <TableColumn fx:id="cCountryId" prefWidth="75.0" text="Country ID" />
+                                    <TableColumn fx:id="cCountry" prefWidth="75.0" text="Country" />
+                                      </columns>
+                                  </TableView>
+                                  <Text layoutX="23.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customers">
+                                      <font>
+                                          <Font name="System Bold" size="12.0" />
+                                      </font>
+                                  </Text>
+                                  <Button fx:id="addCustButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddPart" text="Add" />
+                                  <Button fx:id="modifyCustButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyPart" text="Modify" />
+                                  <Button fx:id="deleteCustButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeletePart" text="Delete" />
+                              <Label fx:id="custWarning" layoutX="48.0" layoutY="319.0" prefHeight="19.0" prefWidth="69.0" />
+                              </children>
+                          </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="apptTab" text="Appointments">
+            <content>
+              <AnchorPane fx:id="apptAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                          <Pane fx:id="apptPane" prefHeight="403.0" prefWidth="773.0">
+                              <children>
+                                  <TableView fx:id="apptTable" layoutY="41.0" prefHeight="200.0" prefWidth="773.0">
+                                      <columns>
+                                          <TableColumn fx:id="cApptId" prefWidth="35.0" text="ID" />
+                                          <TableColumn fx:id="cApptTitle" text="Title" />
+                                          <TableColumn fx:id="cApptDesc" prefWidth="98.0" text="Description" />
+                                          <TableColumn fx:id="cApptLocation" prefWidth="120.0" text="Location" />
+                                    <TableColumn fx:id="cApptType" prefWidth="71.0" text="Type" />
+                                    <TableColumn fx:id="cApptStart" prefWidth="108.0" text="Start" />
+                                    <TableColumn fx:id="cApptEnd" prefWidth="100.0" text="End" />
+                                    <TableColumn fx:id="cApptCustId" prefWidth="90.0" text="Customer ID" />
+                                    <TableColumn fx:id="cApptUserId" prefWidth="50.0" text="User ID" />
+                                    <TableColumn fx:id="cApptContactId" prefWidth="60.0" text="Contact ID" />
+                                      </columns>
+                                  </TableView>
+                                  <Text layoutX="23.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
+                                      <font>
+                                          <Font name="System Bold" size="12.0" />
+                                      </font>
+                                  </Text>
+                                  <Button fx:id="addApptButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddProduct" text="Add" />
+                                  <Button fx:id="modifyApptButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyProduct" text="Modify" />
+                                  <Button fx:id="deleteApptButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeleteProduct" text="Delete" />
+                                  <Label fx:id="apptWarning" layoutX="48.0" layoutY="319.0" prefHeight="17.0" prefWidth="62.0" />
+                              </children>
+                          </Pane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+    </children>
+</AnchorPane>

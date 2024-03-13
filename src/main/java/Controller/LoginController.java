@@ -71,7 +71,7 @@ public class LoginController implements Initializable {
     }
 
     protected void enterApplication(int userId) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         Stage stage = (Stage) LoginButton.getScene().getWindow();
         stage.setTitle("Scheduling Application - Main");

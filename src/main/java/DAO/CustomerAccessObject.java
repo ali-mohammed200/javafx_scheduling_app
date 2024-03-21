@@ -16,6 +16,18 @@ public class CustomerAccessObject {
         return result;
     }
 
+    public static ResultSet getAllCustomersWithFDLData() throws SQLException {
+        String query = "SELECT * FROM customers\n" +
+                "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" +
+                "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID;";
+        Connection conn = DatabaseConnecter.getConnection();
+        PreparedStatement st = conn.prepareStatement(query);
+        ResultSet result = st.executeQuery();
+
+        return result;
+    }
+
+
     public static ResultSet getCustomer(int customerID) throws SQLException {
         String query = "SELECT * FROM customers WHERE Customer_ID = ?";
         Connection conn = DatabaseConnecter.getConnection();

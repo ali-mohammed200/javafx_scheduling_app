@@ -1,8 +1,10 @@
 package Model;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 public class Customers {
+    private FirstLevelDivisions firstLevelDivision;
     private int customerId;
     private String customerName;
     private String  address;
@@ -24,6 +26,16 @@ public class Customers {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
+        this.divisionId = divisionId;
+    }
+
+
+    public Customers(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.phone = phone;
         this.divisionId = divisionId;
     }
 
@@ -105,5 +117,14 @@ public class Customers {
 
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+
+    public FirstLevelDivisions getFirstLevelDivision() {
+        return firstLevelDivision;
+    }
+
+    public void setFirstLevelDivision(FirstLevelDivisions firstLevelDivision) {
+        this.firstLevelDivision = firstLevelDivision;
     }
 }

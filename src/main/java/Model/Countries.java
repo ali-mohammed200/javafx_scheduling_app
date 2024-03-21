@@ -1,18 +1,17 @@
 package Model;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class Countries {
-    private int countryId;
+    private int countryID;
     private String countryName;
     private OffsetDateTime createDate;
     private String createdBy;
     private OffsetDateTime lastUpdate;
     private String lastUpdatedBy;
 
-    public Countries(int countryId, String countryName, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy) {
-        this.countryId = countryId;
+    public Countries(int countryID, String countryName, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy) {
+        this.countryID = countryID;
         this.countryName = countryName;
         this.createDate = createDate;
         this.createdBy = createdBy;
@@ -20,12 +19,17 @@ public class Countries {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
-    public int getCountryId() {
-        return countryId;
+    public Countries(int countryID, String countryName) {
+        this.countryID = countryID;
+        this.countryName = countryName;
     }
 
-    public void setCountryId(int countryId) {
-        this.countryId = countryId;
+    public int getCountryID() {
+        return countryID;
+    }
+
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 
     public String getCountryName() {
@@ -66,5 +70,10 @@ public class Countries {
 
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    @Override
+    public String toString() {
+        return countryName;
     }
 }

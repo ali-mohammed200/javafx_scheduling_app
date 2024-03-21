@@ -1,9 +1,9 @@
 package Model;
 
 import java.time.OffsetDateTime;
-import java.util.Date;
 
 public class FirstLevelDivisions {
+    private Countries country;
     private int divisionId;
     private String divisionName;
     private OffsetDateTime createDate;
@@ -19,6 +19,12 @@ public class FirstLevelDivisions {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
+        this.countryId = countryId;
+    }
+
+    public FirstLevelDivisions(int divisionId, String divisionName, int countryId) {
+        this.divisionId = divisionId;
+        this.divisionName = divisionName;
         this.countryId = countryId;
     }
 
@@ -76,5 +82,18 @@ public class FirstLevelDivisions {
 
     public void setCountryId(int countryId) {
         this.countryId = countryId;
+    }
+
+    public Countries getCountry() {
+        return country;
+    }
+
+    public void setCountry(Countries country) {
+        this.country = country;
+    }
+
+    @Override
+    public String toString() {
+        return divisionName;
     }
 }

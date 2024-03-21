@@ -8,4 +8,6 @@ module com.c195_pa.schedulingsystem {
     exports com.c195_pa.schedulingsystem;
     exports Controller;
     opens Controller to javafx.fxml;
+    exports Model;
+    opens Model to javafx.fxml;
 }

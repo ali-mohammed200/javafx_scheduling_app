@@ -50,7 +50,7 @@
                                           <Font name="System Bold" size="12.0" />
                                       </font>
                                   </Text>
-                                  <Button fx:id="addCustButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddPart" text="Add" />
+                                  <Button fx:id="addCustButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
                                   <Button fx:id="modifyCustButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyPart" text="Modify" />
                                   <Button fx:id="deleteCustButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeletePart" text="Delete" />
                               <Label fx:id="custWarning" layoutX="48.0" layoutY="319.0" prefHeight="19.0" prefWidth="69.0" />

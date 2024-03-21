@@ -1,10 +1,9 @@
 package com.c195_pa.schedulingsystem;
 
-import DAO.AppointmentAccessObject;
 import DAO.CustomerAccessObject;
 import DAO.DatabaseConnecter;
 import Helper.DateConverter;
-import Model.Appointments;
+import Helper.RStoObjectMapper;
 import Model.Customers;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,20 +11,23 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.*;
-import java.time.Instant;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MainApplication extends Application {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
+        DatabaseConnecter.setConnection();
         launch();
     }
+
+
+
 
 //    public static void main(String[] args) {
 //

@@ -51,9 +51,9 @@
                                       </font>
                                   </Text>
                                   <Button fx:id="addCustButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
-                                  <Button fx:id="modifyCustButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyPart" text="Modify" />
+                                  <Button fx:id="modifyCustButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyCustomer" text="Modify" />
                                   <Button fx:id="deleteCustButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeletePart" text="Delete" />
-                              <Label fx:id="custWarning" layoutX="48.0" layoutY="319.0" prefHeight="19.0" prefWidth="69.0" />
+                              <Label fx:id="custWarning" layoutX="15.0" layoutY="290.0" prefHeight="106.0" prefWidth="593.0" />
                               </children>
                           </Pane>
                      </children>
@@ -88,7 +88,7 @@
                                   <Button fx:id="addApptButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddProduct" text="Add" />
                                   <Button fx:id="modifyApptButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyProduct" text="Modify" />
                                   <Button fx:id="deleteApptButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeleteProduct" text="Delete" />
-                                  <Label fx:id="apptWarning" layoutX="48.0" layoutY="319.0" prefHeight="17.0" prefWidth="62.0" />
+                                  <Label fx:id="apptWarning" layoutX="15.0" layoutY="286.0" prefHeight="103.0" prefWidth="657.0" />
                               </children>
                           </Pane>
                      </children>

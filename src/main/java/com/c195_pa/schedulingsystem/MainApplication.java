@@ -201,7 +201,7 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         Locale currentLocale = new Locale("en");
         ResourceBundle localizationBundle = ResourceBundle.getBundle("login", currentLocale);
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/login-view.fxml"));
         fxmlLoader.setResources(localizationBundle);
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(localizationBundle.getString("appName"));

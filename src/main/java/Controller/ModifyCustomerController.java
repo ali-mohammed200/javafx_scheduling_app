@@ -27,10 +27,9 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
-import java.util.Random;
 import java.util.ResourceBundle;
 
-public class AddCustomerController implements Initializable {
+public class ModifyCustomerController implements Initializable {
     @FXML
     private Stage stage;
     @FXML
@@ -53,6 +52,13 @@ public class AddCustomerController implements Initializable {
     private Button saveButton;
     @FXML
     private Button cancelButton;
+
+    private static Customers customer;
+
+    public static void setCustomer(Customers selectedCustomer) {
+        System.out.println(customer);
+        customer = selectedCustomer;
+    }
 
     @FXML
     private void onCountryAction(ActionEvent actionEvent) {
@@ -102,11 +108,11 @@ public class AddCustomerController implements Initializable {
         } else {
             Users currentUser = MainController.getCurrentUser();
             FirstLevelDivisions firstLevelDivision = (FirstLevelDivisions) dropDownDivision.getValue();
-            Customers customer = new Customers(name, address, postalCode,
-                    phoneNumber, OffsetDateTime.now(), currentUser.getUserName(), OffsetDateTime.now(),
+            Customers customer = new Customers(Integer.parseInt(inputID.getText()), name, address, postalCode,
+                    phoneNumber, OffsetDateTime.now(),
                     currentUser.getUserName(), firstLevelDivision.getDivisionId());
 
-            CustomerAccessObject.createCustomer(customer);
+            CustomerAccessObject.updateCustomer(customer);
             onCancel(actionEvent); //close add parts window
         }
     }
@@ -148,6 +154,16 @@ public class AddCustomerController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(customer);
+        inputID.setText(String.valueOf(customer.getCustomerId()));
+        inputName.setText(customer.getCustomerName());
+        inputAddress.setText(customer.getAddress());
+        inputPhoneNumber.setText(customer.getPhone());
+        inputPostalCode.setText(customer.getPostalCode());
         dropDownCountry.setItems(countryList());
+        Countries country = customer.getFirstLevelDivision().getCountry();
+        dropDownCountry.setValue(country);
+        dropDownDivision.setItems(fdlListByCountry(country.getCountryID()));
+        dropDownDivision.setValue(customer.getFirstLevelDivision());
     }
 }

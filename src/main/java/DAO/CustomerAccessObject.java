@@ -39,20 +39,21 @@ public class CustomerAccessObject {
     }
 
     public static int createCustomer(Customers customer) throws SQLException {
+        System.out.println(customer.getCreateDate());
         String query = "INSERT INTO customers ";
-        query += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        query += " (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) ";
+        query += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
-        st.setInt(1, customer.getCustomerId());
-        st.setString(2, customer.getCustomerName());
-        st.setString(3, customer.getAddress());
-        st.setString(4, customer.getPostalCode());
-        st.setString(5, customer.getPhone());
-        st.setTimestamp(6, Timestamp.valueOf( DateConverter.formatForTimestamp(customer.getCreateDate())));
-        st.setString(7, customer.getCreatedBy());
-        st.setTimestamp(8,  Timestamp.valueOf(DateConverter.formatForTimestamp(customer.getLastUpdate())));
-        st.setString(9, customer.getLastUpdatedBy());
-        st.setInt(10, customer.getDivisionId());
+        st.setString(1, customer.getCustomerName());
+        st.setString(2, customer.getAddress());
+        st.setString(3, customer.getPostalCode());
+        st.setString(4, customer.getPhone());
+        st.setTimestamp(5, Timestamp.valueOf( DateConverter.formatForTimestamp(customer.getCreateDate())));
+        st.setString(6, customer.getCreatedBy());
+        st.setTimestamp(7,  Timestamp.valueOf(DateConverter.formatForTimestamp(customer.getLastUpdate())));
+        st.setString(8, customer.getLastUpdatedBy());
+        st.setInt(9, customer.getDivisionId());
         System.out.println(st);
         return st.executeUpdate();
     }

@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.UserAccessObject;
+import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.time.ZonedDateTime;
 import java.util.TimeZone;
 
 public class LoginController implements Initializable {
-    private int userId;
+    private Users currentUser;
     @FXML
     private TextField UserNameInput;
     @FXML
@@ -59,24 +60,24 @@ public class LoginController implements Initializable {
             }
 
             while (rs.next()) {
-                userId = rs.getInt(1);
+                int userId = rs.getInt(1);
                 String userName = rs.getString(2);
                 System.out.println(userId);
                 System.out.println(userName);
+                currentUser = new Users(userId, userName);
             }
-            enterApplication(userId);
+            enterApplication(currentUser);
         } catch (SQLException | IOException e){
             e.printStackTrace();
         }
     }
 
-    protected void enterApplication(int userId) throws IOException {
+    protected void enterApplication(Users currentUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        MainController.setCurrentUser(currentUser);
+        Scene scene = new Scene(fxmlLoader.load());
         Stage stage = (Stage) LoginButton.getScene().getWindow();
         stage.setTitle("Scheduling Application - Main");
-//        stage.setX(0);
-//        stage.setY(0);
         stage.setScene(scene);
         stage.show();
     }

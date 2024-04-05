@@ -22,6 +22,11 @@ public class Users {
         this.lastUpdatedBy = lastUpdatedBy;
     }
 
+    public Users(int userID, String userName) {
+        this.userID = userID;
+        this.userName = userName;
+    }
+
     public int getUserID() {
         return userID;
     }

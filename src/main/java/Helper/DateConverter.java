@@ -18,13 +18,16 @@ public class DateConverter {
     }
 
     public static String formatForTimestamp(OffsetDateTime ofdt) {
-        return ofdt.format((DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss")));
+        return ofdt.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
     public static void main(String[] args){
         System.out.println(OffsetDateTime.now());
         System.out.println(OffsetDateTime.now().toInstant().atOffset(ZoneOffset.of("+00:00")));
         System.out.println(ZoneOffset.of("+00:00"));
+        System.out.println(formatForTimestamp(convertFromLocaltoUTC(OffsetDateTime.now())));
+        System.out.println(formatForTimestamp(OffsetDateTime.now()));
+        System.out.println(formatForTimestamp(convertFromUTCtoLocal(OffsetDateTime.now())));
     }
 }
 

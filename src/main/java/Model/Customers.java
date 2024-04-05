@@ -16,8 +16,7 @@ public class Customers {
     private String  lastUpdatedBy;
     private int divisionId;
 
-    public Customers(int customerId, String customerName, String address, String postalCode, String phone, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
-        this.customerId = customerId;
+    public Customers(String customerName, String address, String postalCode, String phone, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
         this.customerName = customerName;
         this.address = address;
         this.postalCode = postalCode;
@@ -36,6 +35,17 @@ public class Customers {
         this.address = address;
         this.postalCode = postalCode;
         this.phone = phone;
+        this.divisionId = divisionId;
+    }
+
+    public Customers(int customerId, String customerName, String address, String postalCode, String phone, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.address = address;
+        this.postalCode = postalCode;
+        this.phone = phone;
+        this.lastUpdate = lastUpdate;
+        this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
     }
 

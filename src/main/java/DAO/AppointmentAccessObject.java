@@ -19,6 +19,28 @@ public class AppointmentAccessObject {
         return result;
     }
 
+    public static ResultSet getAllAppointmentsWithContacts() throws SQLException {
+        String query = "SELECT * FROM appointments" +
+        "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n";
+
+        Connection conn = DatabaseConnecter.getConnection();
+        PreparedStatement st = conn.prepareStatement(query);
+        ResultSet result = st.executeQuery();
+
+        return result;
+    }
+
+//    •  Appointment_ID
+//•  Title
+//•  Description
+//•  Location
+//•  Contact
+//•  Type
+//•  Start Date and Time
+//•  End Date and Time
+//•  Customer_ID
+//•  User_ID
+
     public static ResultSet getAppointmentByOverlap(OffsetDateTime start, OffsetDateTime end) throws SQLException {
         String query = "SELECT * FROM appointments WHERE (Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?)";
         Connection conn = DatabaseConnecter.getConnection();

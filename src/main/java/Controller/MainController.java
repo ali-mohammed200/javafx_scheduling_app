@@ -1,8 +1,10 @@
 package Controller;
 
+import DAO.AppointmentAccessObject;
 import DAO.CustomerAccessObject;
 import DAO.DatabaseConnecter;
 import Helper.RStoObjectMapper;
+import Model.Appointments;
 import Model.Customers;
 import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
@@ -134,6 +136,17 @@ public class MainController implements Initializable {
     public static ObservableList<Customers> customerList() {
         try {
             ResultSet rs = CustomerAccessObject.getAllCustomersWithFDLData();
+
+            return RStoObjectMapper.rsToCustomerList(rs);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ObservableList<Appointments> apptList() {
+        try {
+            ResultSet rs = AppointmentAccessObject.getAllAppointmentsWithContacts();
 
             return RStoObjectMapper.rsToCustomerList(rs);
 

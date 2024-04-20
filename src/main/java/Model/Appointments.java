@@ -18,6 +18,7 @@ public class Appointments {
     private int customerId;
     private int userId;
     private int contactId;
+    private Contacts contacts;
 
     public Appointments(int appointmentID, String title, String description, String location, String type,
                         OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy,
@@ -148,5 +149,13 @@ public class Appointments {
 
     public void setContactId(int contactId) {
         this.contactId = contactId;
+    }
+
+    public Contacts getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
     }
 }

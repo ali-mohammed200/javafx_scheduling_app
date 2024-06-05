@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -73,11 +74,13 @@
                                           <TableColumn fx:id="cApptDesc" prefWidth="98.0" text="Description" />
                                           <TableColumn fx:id="cApptLocation" prefWidth="120.0" text="Location" />
                                     <TableColumn fx:id="cApptType" prefWidth="71.0" text="Type" />
-                                    <TableColumn fx:id="cApptStart" prefWidth="108.0" text="Start" />
-                                    <TableColumn fx:id="cApptEnd" prefWidth="100.0" text="End" />
-                                    <TableColumn fx:id="cApptCustId" prefWidth="90.0" text="Customer ID" />
+                                    <TableColumn fx:id="cApptStart" prefWidth="128.0" text="Start" />
+                                    <TableColumn fx:id="cApptEnd" prefWidth="126.0" text="End" />
+                                    <TableColumn fx:id="cApptCustId" prefWidth="44.0" text="Customer ID" />
                                     <TableColumn fx:id="cApptUserId" prefWidth="50.0" text="User ID" />
                                     <TableColumn fx:id="cApptContactId" prefWidth="60.0" text="Contact ID" />
+                                    <TableColumn fx:id="cApptContactName" prefWidth="90.0" text="Contact Name" />
+                                    <TableColumn fx:id="cApptContactEmail" prefWidth="170.0" text="Contact Email" />
                                       </columns>
                                   </TableView>
                                   <Text layoutX="23.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments">
@@ -89,6 +92,8 @@
                                   <Button fx:id="modifyApptButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyProduct" text="Modify" />
                                   <Button fx:id="deleteApptButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeleteProduct" text="Delete" />
                                   <Label fx:id="apptWarning" layoutX="15.0" layoutY="286.0" prefHeight="103.0" prefWidth="657.0" />
+                              <RadioButton fx:id="weekButton" layoutX="554.0" layoutY="14.0" mnemonicParsing="false" text="Current Week" />
+                              <RadioButton fx:id="monthButton" layoutX="672.0" layoutY="14.0" mnemonicParsing="false" text="Current Month" />
                               </children>
                           </Pane>
                      </children>

@@ -20,7 +20,7 @@ public class AppointmentAccessObject {
     }
 
     public static ResultSet getAllAppointmentsWithContacts() throws SQLException {
-        String query = "SELECT * FROM appointments" +
+        String query = "SELECT * FROM appointments " +
         "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n";
 
         Connection conn = DatabaseConnecter.getConnection();

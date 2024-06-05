@@ -11,6 +11,8 @@ import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,6 +113,13 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn cApptContactId;
     @FXML
+    private TableColumn<Appointments, String> cApptContactName;
+    @FXML
+    private TableColumn<Appointments, String> cApptContactEmail;
+    private final ToggleGroup group = new ToggleGroup();
+    @FXML private RadioButton weekButton;
+    @FXML private RadioButton monthButton;
+    @FXML
     private Button addApptButton;
     @FXML
     private Button modifyApptButton;
@@ -147,8 +156,8 @@ public class MainController implements Initializable {
     public static ObservableList<Appointments> apptList() {
         try {
             ResultSet rs = AppointmentAccessObject.getAllAppointmentsWithContacts();
-
-            return RStoObjectMapper.rsToCustomerList(rs);
+            Appointments.setAllAppointments(RStoObjectMapper.rsToApptList(rs));
+            return Appointments.getAllAppointments();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -264,5 +273,33 @@ public class MainController implements Initializable {
         cCountryId.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getFirstLevelDivision().getCountryId())));
         cCountry.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstLevelDivision().getCountry().getCountryName()));
 
+        apptTable.setItems(apptList());
+        cApptId.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        cApptTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        cApptDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
+        cApptLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
+        cApptType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        cApptStart.setCellValueFactory(new PropertyValueFactory<>("start"));
+        cApptEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
+        cApptCustId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        cApptUserId.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        cApptContactId.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        cApptContactName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getContactName()));
+        cApptContactEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getEmail()));
+
+        weekButton.setToggleGroup(group);
+        monthButton.setToggleGroup(group);
+
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                if (weekButton.isSelected()) {
+                    System.out.println("Week");
+                    apptTable.setItems(Appointments.getCurrentWeekAppointments());
+                } else if (monthButton.isSelected()) {
+                    System.out.println("Month");
+                }
+            }
+        });
     }
 }

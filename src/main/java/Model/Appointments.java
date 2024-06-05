@@ -1,9 +1,61 @@
 package Model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Predicate;
+
+import java.time.DayOfWeek;
+import java.time.ZoneId;
+import java.time.temporal.TemporalAdjusters;
 
 public class Appointments {
+    private static ObservableList<Appointments> allAppointments = FXCollections.observableList(new ArrayList<Appointments>());
+    public static void setAllAppointments(ObservableList<Appointments> appointments) {
+        allAppointments = appointments;
+    }
+    public static ObservableList<Appointments> getAllAppointments() {
+        FilteredList<Appointments> items = new FilteredList<>(allAppointments);
+        return items;
+    }
+//    FilteredList<LogTest> items = new FilteredList<>(originalItems);
+// tableView.setItems(items);
+//
+// ... on update of filter UI items
+//    Predicate<LogTest> containsFoo = i -> i.getName().contains("foo");
+//    Predicate<LogTest> isSevere = i -> i.getLevel() == Level.SEVERE;
+//    Predicate<LogTest> filter = containsFoo.or(isSevere);
+//
+// items.setPredicate(filter);
+
+//    TODO: Figure out how to filter by week or month
+//    TODO: May need to move the filteredList out of these methods
+    public static void getCurrentWeekAppointments() {
+//        FilteredList<Appointments> items = new FilteredList<>(allAppointments);
+        Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
+//        return items.setPredicate(withinWeek);
+    }
+//    public static ObservableList<Appointments> getCurrentMonthAppointments() {
+//
+//    }
+
+    public static boolean isInCurrentWeek(OffsetDateTime dateTime) {
+        // Get the current date and time in the system default time zone
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+
+        // Find the start of the current week (Monday)
+        OffsetDateTime startOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
+
+        // Find the end of the current week (Sunday)
+        OffsetDateTime endOfWeek = now.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
+
+        // Check if the given date is within the current week
+        return !dateTime.isBefore(startOfWeek) && !dateTime.isAfter(endOfWeek);
+    }
     private int appointmentID;
     private String title;
     private String description;
@@ -19,6 +71,20 @@ public class Appointments {
     private int userId;
     private int contactId;
     private Contacts contacts;
+
+    public Appointments(int appointmentID, String title, String description, String location, String type,
+                        OffsetDateTime start, OffsetDateTime end, int customerId, int userId, int contactId) {
+        this.appointmentID = appointmentID;
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.contactId = contactId;
+    }
 
     public Appointments(int appointmentID, String title, String description, String location, String type,
                         OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy,
@@ -157,5 +223,28 @@ public class Appointments {
 
     public void setContacts(Contacts contacts) {
         this.contacts = contacts;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Appointments{" +
+                "appointmentID=" + appointmentID +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", type='" + type + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", createDate=" + createDate +
+                ", createdBy='" + createdBy + '\'' +
+                ", lastUpdate=" + lastUpdate +
+                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
+                ", customerId=" + customerId +
+                ", userId=" + userId +
+                ", contactId=" + contactId +
+                ", contacts=" + contacts +
+                '}';
     }
 }

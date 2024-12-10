@@ -58,8 +58,8 @@ public class RStoObjectMapper {
             String appt_description = rs.getString("Description");
             String appt_location = rs.getString("Location");
             String appt_type = rs.getString("Type");
-            OffsetDateTime appt_start = rs.getObject("Start", OffsetDateTime.class);
-            OffsetDateTime appt_end = rs.getObject("End", OffsetDateTime.class);
+            OffsetDateTime appt_start = DateConverter.convertFromUTCtoLocal(rs.getObject("Start", OffsetDateTime.class));
+            OffsetDateTime appt_end = DateConverter.convertFromUTCtoLocal(rs.getObject("End", OffsetDateTime.class));
             int appt_custId = rs.getInt("Customer_ID");
             int appt_userId = rs.getInt("User_ID");
             int appt_contactId = rs.getInt("Contact_ID");

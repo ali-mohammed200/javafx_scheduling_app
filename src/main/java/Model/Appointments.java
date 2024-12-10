@@ -14,13 +14,12 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 
 public class Appointments {
-    private static ObservableList<Appointments> allAppointments = FXCollections.observableList(new ArrayList<Appointments>());
+    private static FilteredList<Appointments> allAppointments = new FilteredList<> (FXCollections.observableList(new ArrayList<Appointments>()));
     public static void setAllAppointments(ObservableList<Appointments> appointments) {
-        allAppointments = appointments;
+        allAppointments = new FilteredList<>(appointments);
     }
-    public static ObservableList<Appointments> getAllAppointments() {
-        FilteredList<Appointments> items = new FilteredList<>(allAppointments);
-        return items;
+    public static FilteredList<Appointments> getAllAppointments() {
+        return allAppointments;
     }
 //    FilteredList<LogTest> items = new FilteredList<>(originalItems);
 // tableView.setItems(items);
@@ -32,20 +31,20 @@ public class Appointments {
 //
 // items.setPredicate(filter);
 
-//    TODO: Figure out how to filter by week or month
-//    TODO: May need to move the filteredList out of these methods
-    public static void getCurrentWeekAppointments() {
-//        FilteredList<Appointments> items = new FilteredList<>(allAppointments);
+    public static Predicate<Appointments> getCurrentWeekAppointments() {
         Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
-//        return items.setPredicate(withinWeek);
+        return withinWeek;
     }
-//    public static ObservableList<Appointments> getCurrentMonthAppointments() {
-//
-//    }
+    public static Predicate<Appointments> getCurrentMonthAppointments() {
+        Predicate<Appointments> withinMonth = i -> isInCurrentMonth(i.getStart());
+        return withinMonth;
+    }
 
     public static boolean isInCurrentWeek(OffsetDateTime dateTime) {
         // Get the current date and time in the system default time zone
         OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+        System.out.println(ZoneId.systemDefault());
+        System.out.println(now);
 
         // Find the start of the current week (Monday)
         OffsetDateTime startOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
@@ -56,6 +55,21 @@ public class Appointments {
         // Check if the given date is within the current week
         return !dateTime.isBefore(startOfWeek) && !dateTime.isAfter(endOfWeek);
     }
+
+    public static boolean isInCurrentMonth(OffsetDateTime dateTime) {
+        // Get the current date and time in the system default time zone
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+
+        // Find the start of the current month (first day of the month at start of the day)
+        OffsetDateTime startOfMonth = now.with(TemporalAdjusters.firstDayOfMonth()).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
+
+        // Find the end of the current month (last day of the month at the end of the day)
+        OffsetDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth()).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
+
+        // Check if the given date is within the current month
+        return !dateTime.isBefore(startOfMonth) && !dateTime.isAfter(endOfMonth);
+    }
+
     private int appointmentID;
     private String title;
     private String description;

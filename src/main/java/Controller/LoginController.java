@@ -98,6 +98,6 @@ public class LoginController implements Initializable {
         String timezoneText = resourceBundle.getString("welcome") + " " + resourceBundle.getString("timezone")
                 + " " + parsedTimeZone;
         TimeZoneBox.setText(timezoneText);
-        System.out.println("lll");
+        System.out.println("login");
     }
 }

@@ -119,6 +119,7 @@ public class MainController implements Initializable {
     private final ToggleGroup group = new ToggleGroup();
     @FXML private RadioButton weekButton;
     @FXML private RadioButton monthButton;
+    @FXML private RadioButton allButton;
     @FXML
     private Button addApptButton;
     @FXML
@@ -217,17 +218,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    protected void onDeletePart(ActionEvent event) throws SQLException {
+    protected void onDeleteCustomer(ActionEvent event) throws SQLException {
         Customers selectedCustomer = (Customers) customerTable.getSelectionModel().getSelectedItem();
 //        TODO: Need to finish deletion. Destroy is dependent on appts
         if (selectedCustomer != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Customer");
-            alert.setHeaderText("Confirm deletion");
-            alert.setContentText("Are you sure you want to delete " + selectedCustomer.getCustomerName() + "?");
+            alert.setTitle("Confirm Delete Customer");
+            alert.setHeaderText("Are you sure you want to delete " + selectedCustomer.getCustomerName() + "?");
+            String contentText = "Associated customer appointments will also be deleted.";
+            alert.setContentText(contentText);
             if (alert.showAndWait().get() == ButtonType.OK) {
-                CustomerAccessObject.deleteCustomer(selectedCustomer.getCustomerId());
+                CustomerAccessObject.deleteCustomerWithAppts(selectedCustomer.getCustomerId());
+                setWarningLabel(selectedCustomer.getCustomerName() + " has been deleted!", custWarning);
                 customerTable.setItems(customerList());
+                apptTable.setItems(apptList());
             } else {
                 setWarningLabel("Not Deleted", custWarning);
             }
@@ -252,6 +256,17 @@ public class MainController implements Initializable {
     public void onDeleteProduct(ActionEvent actionEvent) {
 
     }
+
+    @FXML
+    protected void onAddAppointment(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/add-appointment-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Add Appointment");
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -289,15 +304,19 @@ public class MainController implements Initializable {
 
         weekButton.setToggleGroup(group);
         monthButton.setToggleGroup(group);
+        allButton.setToggleGroup(group);
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 if (weekButton.isSelected()) {
                     System.out.println("Week");
-                    apptTable.setItems(Appointments.getCurrentWeekAppointments());
+                    Appointments.getAllAppointments().setPredicate(Appointments.getCurrentWeekAppointments());
                 } else if (monthButton.isSelected()) {
                     System.out.println("Month");
+                    Appointments.getAllAppointments().setPredicate(Appointments.getCurrentMonthAppointments());
+                } else {
+                    Appointments.getAllAppointments().setPredicate(null);
                 }
             }
         });

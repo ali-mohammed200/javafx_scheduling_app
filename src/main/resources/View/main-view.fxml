@@ -53,7 +53,7 @@
                                   </Text>
                                   <Button fx:id="addCustButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddCustomer" text="Add" />
                                   <Button fx:id="modifyCustButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyCustomer" text="Modify" />
-                                  <Button fx:id="deleteCustButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeletePart" text="Delete" />
+                                  <Button fx:id="deleteCustButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeleteCustomer" text="Delete" />
                               <Label fx:id="custWarning" layoutX="15.0" layoutY="290.0" prefHeight="106.0" prefWidth="593.0" />
                               </children>
                           </Pane>
@@ -88,12 +88,13 @@
                                           <Font name="System Bold" size="12.0" />
                                       </font>
                                   </Text>
-                                  <Button fx:id="addApptButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddProduct" text="Add" />
+                                  <Button fx:id="addApptButton" layoutX="50.0" layoutY="254.0" mnemonicParsing="false" onAction="#onAddAppointment" text="Add" />
                                   <Button fx:id="modifyApptButton" layoutX="100.0" layoutY="254.0" mnemonicParsing="false" onAction="#onModifyProduct" text="Modify" />
                                   <Button fx:id="deleteApptButton" layoutX="165.0" layoutY="254.0" mnemonicParsing="false" onAction="#onDeleteProduct" text="Delete" />
                                   <Label fx:id="apptWarning" layoutX="15.0" layoutY="286.0" prefHeight="103.0" prefWidth="657.0" />
                               <RadioButton fx:id="weekButton" layoutX="554.0" layoutY="14.0" mnemonicParsing="false" text="Current Week" />
                               <RadioButton fx:id="monthButton" layoutX="672.0" layoutY="14.0" mnemonicParsing="false" text="Current Month" />
+                              <RadioButton fx:id="allButton" layoutX="482.0" layoutY="14.0" mnemonicParsing="false" text="All" />
                               </children>
                           </Pane>
                      </children>

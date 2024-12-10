@@ -199,6 +199,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+//        TODO: Test locale and check if we can switch locals
         Locale currentLocale = new Locale("en");
         ResourceBundle localizationBundle = ResourceBundle.getBundle("login", currentLocale);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/login-view.fxml"));
@@ -207,6 +208,6 @@ public class MainApplication extends Application {
         stage.setTitle(localizationBundle.getString("appName"));
         stage.setScene(scene);
         stage.show();
-        DatabaseConnecter.setConnection();
+        DatabaseConnecter.setConnection(); // TODO: Why are there two setConnection? Here and above. Research and Address
     }
 }

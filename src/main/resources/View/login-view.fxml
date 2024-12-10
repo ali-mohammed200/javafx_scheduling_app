@@ -8,10 +8,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
    <children>
-      <TextField fx:id="UserNameInput" focusTraversable="false" layoutX="226.0" layoutY="175.0" promptText="%username" />
-      <PasswordField fx:id="PasswordInput" focusTraversable="false" layoutX="226.0" layoutY="214.0" promptText="%password" />
-      <Button fx:id="ExitButton" layoutX="226.0" layoutY="317.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="25.0" prefWidth="149.0" text="%exit" />
+      <TextField fx:id="UserNameInput" layoutX="226.0" layoutY="175.0" promptText="%username" />
+      <PasswordField fx:id="PasswordInput" layoutX="226.0" layoutY="214.0" promptText="%password" />
       <Button fx:id="LoginButton" layoutX="226.0" layoutY="277.0" mnemonicParsing="false" onAction="#onLoginButtonClick" prefHeight="25.0" prefWidth="149.0" text="%login" />
+      <Button fx:id="ExitButton" layoutX="226.0" layoutY="317.0" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="25.0" prefWidth="149.0" text="%exit" />
       <Label fx:id="TimeZoneBox" layoutX="33.0" layoutY="40.0" prefHeight="79.0" prefWidth="109.0" text="%welcome" textAlignment="CENTER" wrapText="true" />
       <Label fx:id="ErrorBox" layoutX="364.0" layoutY="40.0" prefHeight="71.0" prefWidth="167.0" wrapText="true" />
    </children>

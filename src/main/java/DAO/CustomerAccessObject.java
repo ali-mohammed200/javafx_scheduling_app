@@ -77,11 +77,17 @@ public class CustomerAccessObject {
         return st.executeUpdate();
     }
 
-    public static int deleteCustomer(int customerID) throws SQLException {
-        String query = "DELETE FROM customers WHERE Customer_ID = ?";
+    public static int deleteCustomerWithAppts(int customerID) throws SQLException {
+//        https://stackoverflow.com/questions/3331992/how-to-delete-from-multiple-tables-in-mysql
+//        DELETE FROM `articles`, `comments`
+//        USING `articles`,`comments`
+//        WHERE `comments`.`article_id` = `articles`.`id` AND `articles`.`id` = 4
+        String query = "DELETE FROM appointments, customers USING appointments, customers WHERE appointments.Customer_ID = customers.Customer_ID AND customers.Customer_ID = ?";
+        System.out.println(query);
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, customerID);
         return st.executeUpdate();
     }
+
 }

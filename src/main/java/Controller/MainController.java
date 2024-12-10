@@ -220,7 +220,6 @@ public class MainController implements Initializable {
     @FXML
     protected void onDeleteCustomer(ActionEvent event) throws SQLException {
         Customers selectedCustomer = (Customers) customerTable.getSelectionModel().getSelectedItem();
-//        TODO: Need to finish deletion. Destroy is dependent on appts
         if (selectedCustomer != null) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirm Delete Customer");
@@ -247,14 +246,27 @@ public class MainController implements Initializable {
         stage.close();
     }
 
-    public void onAddProduct(ActionEvent actionEvent) {
+    public void onUpdateAppointment(ActionEvent actionEvent) {
     }
 
-    public void onModifyProduct(ActionEvent actionEvent) {
-    }
-
-    public void onDeleteProduct(ActionEvent actionEvent) {
-
+    public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
+        Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
+        if (selectedAppointment != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Appointment");
+            alert.setHeaderText("Are you sure you want to delete this appointment: ID - " + selectedAppointment.getAppointmentID() + "?");
+            String contentText = "Confirm your choice";
+            alert.setContentText(contentText);
+            if (alert.showAndWait().get() == ButtonType.OK) {
+                AppointmentAccessObject.deleteAppointment(selectedAppointment.getAppointmentID());
+                setWarningLabel(selectedAppointment.getAppointmentID() + " - " + selectedAppointment.getType() + " has been deleted!", apptWarning);
+                apptTable.setItems(apptList());
+            } else {
+                setWarningLabel("Appointment Not Deleted", apptWarning);
+            }
+        } else {
+            setWarningLabel("No appointment selected", apptWarning);
+        }
     }
 
     @FXML

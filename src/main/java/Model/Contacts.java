@@ -37,10 +37,6 @@ public class Contacts {
 
     @Override
     public String toString() {
-        return "Contacts{" +
-                "contactID=" + contactID +
-                ", contactName='" + contactName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return contactID + ": "+ contactName + " - " + email;
     }
 }

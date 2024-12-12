@@ -116,9 +116,24 @@ public class RStoObjectMapper {
 
         return firstLevelDivisions;
     }
+
+    public static ObservableList<Contacts> rsToContactList(ResultSet rs) throws SQLException {
+        ObservableList<Contacts> contacts = FXCollections.observableArrayList(new ArrayList<Contacts>());
+        while (rs.next()) {
+            int contactID = rs.getInt("Contact_ID");
+            String contactName = rs.getString("Contact_Name");
+            String email = rs.getString("Email");
+
+            Contacts contact = new Contacts(contactID, contactName, email);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
 }
 //Customer_ID, Customer_Name, Address, Postal_Code, Phone,
 //Create_Date, Created_By, Last_Update, Last_Updated_By,
 //Division_ID, Division_ID, Division, Create_Date, Created_By,
 //Last_Update, Last_Updated_By, Country_ID, Country_ID, Country,
 //Create_Date, Created_By, Last_Update, Last_Updated_By
+
+

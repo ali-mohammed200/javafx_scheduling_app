@@ -246,7 +246,7 @@ public class MainController implements Initializable {
         stage.close();
     }
 
-    public void onUpdateAppointment(ActionEvent actionEvent) {
+    public void onModifyAppointment(ActionEvent actionEvent) {
     }
 
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {

@@ -49,9 +49,9 @@ public class CustomerAccessObject {
         st.setString(2, customer.getAddress());
         st.setString(3, customer.getPostalCode());
         st.setString(4, customer.getPhone());
-        st.setTimestamp(5, Timestamp.valueOf( DateConverter.formatForTimestamp(customer.getCreateDate())));
+        st.setObject(5, customer.getCreateDate());
         st.setString(6, customer.getCreatedBy());
-        st.setTimestamp(7,  Timestamp.valueOf(DateConverter.formatForTimestamp(customer.getLastUpdate())));
+        st.setObject(7, customer.getLastUpdate());
         st.setString(8, customer.getLastUpdatedBy());
         st.setInt(9, customer.getDivisionId());
         System.out.println(st);
@@ -69,7 +69,7 @@ public class CustomerAccessObject {
         st.setString(2, customer.getAddress());
         st.setString(3, customer.getPostalCode());
         st.setString(4, customer.getPhone());
-        st.setTimestamp(5,  Timestamp.valueOf(DateConverter.formatForTimestamp(customer.getLastUpdate())));
+        st.setObject(5, customer.getLastUpdate());
         st.setString(6, customer.getLastUpdatedBy());
         st.setInt(7, customer.getDivisionId());
         st.setInt(8, customer.getCustomerId());

@@ -78,9 +78,9 @@ public class RStoObjectMapper {
 //                // up to this point
 
             Appointments appointment = new Appointments(appt_id, appt_title, appt_description, appt_location, appt_type, appt_start, appt_end, appt_custId, appt_userId, appt_contactId);
-            Contacts contant = new Contacts(appt_contactId, contactName, contactEmail);
+            Contacts contact = new Contacts(appt_contactId, contactName, contactEmail);
 
-            appointment.setContacts(contant);
+            appointment.setContacts(contact);
 
             System.out.println(appointment);
 

@@ -1,5 +1,6 @@
 package Model;
 
+import Helper.DateConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -86,6 +87,23 @@ public class Appointments {
     private int contactId;
     private Contacts contacts;
 
+
+    public Appointments(String title, String description, String location, String type,
+                        OffsetDateTime start, OffsetDateTime end, Users user, int customerId, int userId, int contactId) {
+        this.title = title;
+        this.description = description;
+        this.location = location;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.createDate = DateConverter.convertFromLocaltoUTC(OffsetDateTime.now());
+        this.createdBy = user.getUserName();
+        this.lastUpdate = DateConverter.convertFromLocaltoUTC(OffsetDateTime.now());;
+        this.lastUpdatedBy = user.getUserName();
+        this.customerId = customerId;
+        this.userId = userId;
+        this.contactId = contactId;
+    }
     public Appointments(int appointmentID, String title, String description, String location, String type,
                         OffsetDateTime start, OffsetDateTime end, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;

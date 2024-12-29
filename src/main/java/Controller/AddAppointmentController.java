@@ -1,9 +1,7 @@
 package Controller;
 
-import DAO.ContactAccessObject;
-import DAO.CountryAccessObject;
-import DAO.CustomerAccessObject;
-import DAO.FirstLevelDivisionAccessObject;
+import DAO.*;
+import Helper.DateConverter;
 import Helper.RStoObjectMapper;
 import Model.*;
 import com.c195_pa.schedulingsystem.MainApplication;
@@ -22,6 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -30,25 +29,44 @@ import java.util.ResourceBundle;
 public class AddAppointmentController implements Initializable {
     @FXML
     private Stage stage;
-    @FXML private TextField inputID;
-    @FXML private TextField inputTitle;
-    @FXML private TextField inputDescription;
-    @FXML private TextField inputLocation;
-    @FXML private ComboBox dropDownContact;
-    @FXML private TextField inputType;
-    @FXML private DatePicker startDate;
-    @FXML private ComboBox startHour;
-    @FXML private ComboBox startMin;
-    @FXML private ComboBox startUnit;
-    @FXML private DatePicker endDate;
-    @FXML private ComboBox endHour;
-    @FXML private ComboBox endMin;
-    @FXML private ComboBox endUnit;
-    @FXML private Button saveButton;
-    @FXML private Button cancelButton;
-    @FXML private Label warningLabel;
-    @FXML private TextField inputUserID;
-    @FXML private TextField inputCustomerID;
+    @FXML
+    private TextField inputID;
+    @FXML
+    private TextField inputTitle;
+    @FXML
+    private TextField inputDescription;
+    @FXML
+    private TextField inputLocation;
+    @FXML
+    private ComboBox dropDownContact;
+    @FXML
+    private TextField inputType;
+    @FXML
+    private DatePicker startDate;
+    @FXML
+    private ComboBox startHour;
+    @FXML
+    private ComboBox startMin;
+    @FXML
+    private ComboBox startUnit;
+    @FXML
+    private DatePicker endDate;
+    @FXML
+    private ComboBox endHour;
+    @FXML
+    private ComboBox endMin;
+    @FXML
+    private ComboBox endUnit;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Label warningLabel;
+    @FXML
+    private TextField inputUserID;
+    @FXML
+    private TextField inputCustomerID;
 
 //    @FXML
 //    private void onCountryAction(ActionEvent actionEvent) {
@@ -80,8 +98,8 @@ public class AddAppointmentController implements Initializable {
             warning += "Contact is empty. ";
         }
 
-        String type = inputType.getText();
-        if (type == "") {
+        String typeValue = inputType.getText();
+        if (typeValue == "") {
             warning += "Type is empty. ";
         }
 
@@ -129,21 +147,28 @@ public class AddAppointmentController implements Initializable {
         int customerID = 0;
         try {
             customerID = Integer.parseInt(inputCustomerID.getText());
+            if (customerID < 1) {
+                warning += "Customer ID is not valid. ";
+            }
         } catch (NumberFormatException e) {
-            warning += "Customer ID is not a integer. ";
+            warning += "Customer ID is not an integer. ";
         }
 
         int userID = 0;
         try {
             userID = Integer.parseInt(inputUserID.getText());
+            if (userID < 1) {
+                warning += "User ID is not valid. ";
+            }
         } catch (NumberFormatException e) {
-            warning += "User ID is not a integer. ";
+            warning += "User ID is not an integer. ";
         }
 
         System.out.println(title);
         System.out.println(description);
         System.out.println(location);
         System.out.println(contactValue);
+        System.out.println(typeValue);
         System.out.println(startDateValue);
         System.out.println(startHourValue);
         System.out.println(startMinValue);
@@ -155,22 +180,46 @@ public class AddAppointmentController implements Initializable {
         System.out.println(userID);
         System.out.println(customerID);
 
+        String stringStartTime = DateConverter.buildTimeString(startHourValue, startMinValue, startUnitValue);
+        OffsetDateTime odtStartLocal = DateConverter.buildOffsetDateTimeObject(stringStartTime, startDateValue);
+
+        String stringEndTime = DateConverter.buildTimeString(endHourValue, endMinValue, endUnitValue);
+        OffsetDateTime odtEndLocal = DateConverter.buildOffsetDateTimeObject(stringEndTime, endDateValue);
+
+        if (!DateConverter.withinBusinessHours(odtStartLocal) || !DateConverter.withinBusinessHours(odtEndLocal)) {
+            warning += "Time(s) are not within business hours: 8am - 10pm (Weekdays). ";
+        }
+
+        OffsetDateTime odtStartUTC = DateConverter.convertFromLocaltoUTC(odtStartLocal);
+        OffsetDateTime odtEndUTC = DateConverter.convertFromLocaltoUTC(odtEndLocal);
+
+        if(odtStartUTC.isAfter(odtEndUTC)){
+            warning += "Start can not be after end. ";
+        }
+
         if (warning.length() > 0) {
             warningLabel.setText("Exception:\n" + warning);
         } else {
-//            TODO: Build Date Time Object Using Values Above
-//            TODO: Convert to ETC or UTC or Local
-//            TODO: Check Rubric
-//            TODO: Create Appointment and Contact obj
-//            TODO: Insert into DB and Refresh APPTLIST()
-//            Users currentUser = MainController.getCurrentUser();
-//            FirstLevelDivisions firstLevelDivision = (FirstLevelDivisions) dropDownDivision.getValue();
-//            Customers customer = new Customers(name, address, postalCode,
-//                    phoneNumber, OffsetDateTime.now(), currentUser.getUserName(), OffsetDateTime.now(),
-//                    currentUser.getUserName(), firstLevelDivision.getDivisionId());
-//
-//            CustomerAccessObject.createCustomer(customer);
-            onCancel(actionEvent); //close add parts window
+            ResultSet rs = AppointmentAccessObject.getAppointmentByOverlap(odtStartUTC, odtEndUTC, customerID);
+            if(rs.next()){
+                warningLabel.setText("Exception:\n" + "Overlapping appointments found!");
+            } else {
+                warningLabel.setText("");
+                Users currentUser = MainController.getCurrentUser();
+                Contacts contact = (Contacts) contactValue;
+                Appointments appointment = new Appointments(title, description, location, typeValue,
+                        odtStartUTC, odtEndUTC, currentUser, customerID, userID, contact.getContactID()
+                );
+                try {
+                    AppointmentAccessObject.createAppointment(appointment);
+                    onCancel(actionEvent);
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    System.out.println(e);
+                    warningLabel.setText("Exception:\n" + "Customer ID or User ID does not exist");
+                }
+
+            }
+
         }
     }
 
@@ -183,7 +232,7 @@ public class AddAppointmentController implements Initializable {
         stage.setTitle("Inventory Management - Main");
         stage.setScene(scene);
         MainController mainController = fxmlLoader.getController();
-        mainController.setActiveTab(1);
+        mainController.setActiveTab(2);
         stage.show();
     }
 
@@ -201,7 +250,7 @@ public class AddAppointmentController implements Initializable {
     public static ObservableList<String> getHours() {
         ObservableList<String> hours = FXCollections.observableArrayList(new ArrayList<String>());
         for (int i = 1; i <= 12; i++) {
-            hours.add(String.valueOf(i));
+            hours.add(String.format("%02d", i));
         }
         return hours;
     }

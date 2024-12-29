@@ -6,6 +6,8 @@ import Model.Customers;
 
 import java.sql.*;
 import java.time.OffsetDateTime;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class AppointmentAccessObject {
 //    TODO: fix and build
@@ -41,15 +43,30 @@ public class AppointmentAccessObject {
 //•  Customer_ID
 //•  User_ID
 
-    public static ResultSet getAppointmentByOverlap(OffsetDateTime start, OffsetDateTime end) throws SQLException {
-        String query = "SELECT * FROM appointments WHERE (Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?)";
+//     1 - 4p
+//    2-3 start and end are not between these
+//    12-3 start is between these
+//    3-4 end is between these
+
+    public static ResultSet getAppointmentByOverlap(OffsetDateTime start, OffsetDateTime end, Integer Customer_ID) throws SQLException {
+        String query = "SELECT * FROM appointments WHERE Customer_ID = ? AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?) OR (Start < ? AND End > ?))";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
 
-        st.setTimestamp(6, Timestamp.valueOf( DateConverter.formatForTimestamp(start)));
-        st.setTimestamp(7, Timestamp.valueOf( DateConverter.formatForTimestamp(end)));
-        st.setTimestamp(6, Timestamp.valueOf( DateConverter.formatForTimestamp(start)));
-        st.setTimestamp(7, Timestamp.valueOf( DateConverter.formatForTimestamp(end)));
+        System.out.println("rs getAppointmentByOverlap ------");
+        System.out.println(start);
+//        System.out.println(Timestamp.valueOf(start));
+//        System.out.println(end));
+//        System.out.println(Timestamp.valueOf( end)));
+        System.out.println("rs getAppointmentByOverlap ------");
+
+        st.setInt(1, Customer_ID);
+        st.setObject(2,  start);
+        st.setObject(3,  end);
+        st.setObject(4,  start);
+        st.setObject(5,  end);
+        st.setObject(6,  start);
+        st.setObject(7,  end);
 
         ResultSet result = st.executeQuery();
 
@@ -69,27 +86,28 @@ public class AppointmentAccessObject {
     }
     public static int createAppointment(Appointments appt) throws SQLException {
         String query = "INSERT INTO appointments ";
-        query += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-//        Appointment_ID, Title, Description,
+        query += " (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By,  Customer_ID, User_ID, Contact_ID) ";
+        query += "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+//        Title, Description,
 //        Location, Type, Start, End,
 //        Create_Date, Created_By, Last_Update, Last_Updated_By,
 //        Customer_ID, User_ID, Contact_ID
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
-        st.setInt(1, appt.getAppointmentID());
-        st.setString(2, appt.getTitle());
-        st.setString(3, appt.getDescription());
-        st.setString(4, appt.getLocation());
-        st.setString(5, appt.getType());
-        st.setTimestamp(6, Timestamp.valueOf( DateConverter.formatForTimestamp(appt.getStart())));
-        st.setTimestamp(7, Timestamp.valueOf( DateConverter.formatForTimestamp(appt.getEnd())));
-        st.setTimestamp(8, Timestamp.valueOf( DateConverter.formatForTimestamp(appt.getCreateDate())));
-        st.setString(9, appt.getCreatedBy());
-        st.setTimestamp(10,  Timestamp.valueOf(DateConverter.formatForTimestamp(appt.getLastUpdate())));
-        st.setString(11, appt.getLastUpdatedBy());
-        st.setInt(12, appt.getCustomerId());
-        st.setInt(13, appt.getUserId());
-        st.setInt(14, appt.getContactId());
+
+        st.setString(1, appt.getTitle());
+        st.setString(2, appt.getDescription());
+        st.setString(3, appt.getLocation());
+        st.setString(4, appt.getType());
+        st.setObject(5, appt.getStart());
+        st.setObject(6, appt.getEnd());
+        st.setObject(7,  appt.getCreateDate());
+        st.setString(8, appt.getCreatedBy());
+        st.setObject(9,  appt.getLastUpdate());
+        st.setString(10, appt.getLastUpdatedBy());
+        st.setInt(11, appt.getCustomerId());
+        st.setInt(12, appt.getUserId());
+        st.setInt(13, appt.getContactId());
 
         System.out.println(st);
         return st.executeUpdate();
@@ -113,9 +131,9 @@ public class AppointmentAccessObject {
         st.setString(2, appt.getDescription());
         st.setString(3, appt.getLocation());
         st.setString(4, appt.getType());
-        st.setTimestamp(5, Timestamp.valueOf( DateConverter.formatForTimestamp(appt.getStart())));
-        st.setTimestamp(6, Timestamp.valueOf( DateConverter.formatForTimestamp(appt.getEnd())));
-        st.setTimestamp(7,  Timestamp.valueOf(DateConverter.formatForTimestamp(appt.getLastUpdate())));
+        st.setObject(5,  appt.getStart());
+        st.setObject(6,  appt.getEnd());
+        st.setObject(7,  appt.getLastUpdate());
         st.setString(8, appt.getLastUpdatedBy());
         st.setInt(9, appt.getCustomerId());
         st.setInt(10, appt.getUserId());

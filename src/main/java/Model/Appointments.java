@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.Predicate;
@@ -192,6 +193,14 @@ public class Appointments {
 
     public void setEnd(OffsetDateTime end) {
         this.end = end;
+    }
+
+    public String formattedStart(){
+        return DateConverter.readableDateFormat(this.start);
+    }
+
+    public String formattedEnd(){
+        return DateConverter.readableDateFormat(this.end);
     }
 
     public OffsetDateTime getCreateDate() {

@@ -56,6 +56,10 @@ public class DateConverter {
         return ofdt.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
     }
 
+    public static String readableDateFormat(OffsetDateTime ofdt){
+        return ofdt.format((DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")));
+    }
+
     public static void main(String[] args){
         String t = buildTimeString("05", "30", "PM");
         LocalDate localDate = LocalDate.of(2024, 12, 21);

@@ -66,16 +66,6 @@ public class RStoObjectMapper {
 
             String contactName = rs.getString("Contact_Name");
             String contactEmail = rs.getString("Email");
-//                //This is it
-//                System.out.println(OffsetDateTime.now().toString());
-//
-//                ZoneId myz = ZoneId.systemDefault();
-//                ZonedDateTime zdt = ZonedDateTime.now(myz);
-//                System.out.println(zdt);
-//
-//                OffsetDateTime ts = rs.getObject("Create_Date", OffsetDateTime.class);
-//                System.out.println(ts.toInstant().atOffset(zdt.getOffset()));
-//                // up to this point
 
             Appointments appointment = new Appointments(appt_id, appt_title, appt_description, appt_location, appt_type, appt_start, appt_end, appt_custId, appt_userId, appt_contactId);
             Contacts contact = new Contacts(appt_contactId, contactName, contactEmail);

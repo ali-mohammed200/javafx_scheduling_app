@@ -103,9 +103,9 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn cApptType;
     @FXML
-    private TableColumn cApptStart;
+    private TableColumn<Appointments, String> cApptStart;
     @FXML
-    private TableColumn cApptEnd;
+    private TableColumn<Appointments, String> cApptEnd;
     @FXML
     private TableColumn cApptCustId;
     @FXML
@@ -324,8 +324,8 @@ public class MainController implements Initializable {
         cApptDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
         cApptLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         cApptType.setCellValueFactory(new PropertyValueFactory<>("type"));
-        cApptStart.setCellValueFactory(new PropertyValueFactory<>("start"));
-        cApptEnd.setCellValueFactory(new PropertyValueFactory<>("end"));
+        cApptStart.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().formattedStart()));
+        cApptEnd.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().formattedEnd()));
         cApptCustId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         cApptUserId.setCellValueFactory(new PropertyValueFactory<>("userId"));
         cApptContactId.setCellValueFactory(new PropertyValueFactory<>("contactId"));

@@ -88,8 +88,9 @@ public class Appointments {
     private Contacts contacts;
 
 
-    public Appointments(String title, String description, String location, String type,
+    public Appointments(int appointmentID, String title, String description, String location, String type,
                         OffsetDateTime start, OffsetDateTime end, Users user, int customerId, int userId, int contactId) {
+        this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
         this.location = location;

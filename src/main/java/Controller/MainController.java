@@ -246,7 +246,25 @@ public class MainController implements Initializable {
         stage.close();
     }
 
-    public void onModifyAppointment(ActionEvent actionEvent) {
+    public void onModifyAppointment(ActionEvent event) throws IOException {
+        Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
+//        Integer selectedIndex = tableProduct.getSelectionModel().getSelectedIndex();
+        if (selectedAppointment != null) {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/modify-appointment-view.fxml"));
+            ModifyAppointmentController modifyAppointmentController = (ModifyAppointmentController) fxmlLoader.getController();
+            System.out.println(selectedAppointment);
+            modifyAppointmentController.setAppointment(selectedAppointment);
+
+            Scene scene = new Scene(fxmlLoader.load());
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Modify Appointment");
+//            stage.setY(0);
+            stage.setScene(scene);
+            stage.show();
+
+        } else {
+            setWarningLabel("No Appointment selected to modify. ", apptWarning);
+        }
     }
 
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {

@@ -48,17 +48,14 @@ public class AppointmentAccessObject {
 //    12-3 start is between these
 //    3-4 end is between these
 
-    public static ResultSet getAppointmentByOverlap(OffsetDateTime start, OffsetDateTime end, Integer Customer_ID) throws SQLException {
-        String query = "SELECT * FROM appointments WHERE Customer_ID = ? AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?) OR (Start < ? AND End > ?))";
+    public static ResultSet getAppointmentByOverlap(int appointmentID, OffsetDateTime start, OffsetDateTime end, Integer Customer_ID) throws SQLException {
+        String query = "SELECT * FROM appointments WHERE Customer_ID = ? ";
+        query += "AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?) OR (Start < ? AND End > ?))";
+        if (appointmentID > 0) {
+            query += " AND Appointment_ID != ?";
+        }
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
-
-        System.out.println("rs getAppointmentByOverlap ------");
-        System.out.println(start);
-//        System.out.println(Timestamp.valueOf(start));
-//        System.out.println(end));
-//        System.out.println(Timestamp.valueOf( end)));
-        System.out.println("rs getAppointmentByOverlap ------");
 
         st.setInt(1, Customer_ID);
         st.setObject(2,  start);
@@ -67,6 +64,10 @@ public class AppointmentAccessObject {
         st.setObject(5,  end);
         st.setObject(6,  start);
         st.setObject(7,  end);
+
+        if (appointmentID > 0) {
+            st.setInt(8,  appointmentID);
+        }
 
         ResultSet result = st.executeQuery();
 

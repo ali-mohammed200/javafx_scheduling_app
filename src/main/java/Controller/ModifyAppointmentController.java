@@ -1,9 +1,13 @@
 package Controller;
 
-import DAO.*;
+import DAO.AppointmentAccessObject;
+import DAO.ContactAccessObject;
 import Helper.DateConverter;
 import Helper.RStoObjectMapper;
-import Model.*;
+import Model.Appointments;
+import Model.Contacts;
+import Model.Customers;
+import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +30,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AddAppointmentController implements Initializable {
+public class ModifyAppointmentController implements Initializable {
     @FXML
     private Stage stage;
     @FXML
@@ -68,12 +72,12 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private TextField inputCustomerID;
 
-//    @FXML
-//    private void onCountryAction(ActionEvent actionEvent) {
-//        System.out.println(dropDownCountry.getValue());
-//        Countries country = (Countries) dropDownCountry.getValue();
-//        dropDownDivision.setItems(fdlListByCountry(country.getCountryID()));
-//    }
+    private static Appointments appointment;
+
+    public static void setAppointment(Appointments selectedAppointment) {
+        appointment = selectedAppointment;
+        System.out.println(appointment);
+    }
 
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -197,21 +201,23 @@ public class AddAppointmentController implements Initializable {
             warning += "Start can not be after end. ";
         }
 
+        int appointmentID = Integer.parseInt(inputID.getText());
+
         if (warning.length() > 0) {
             warningLabel.setText("Exception:\n" + warning);
         } else {
-            ResultSet rs = AppointmentAccessObject.getAppointmentByOverlap(0, odtStartUTC, odtEndUTC, customerID);
+            ResultSet rs = AppointmentAccessObject.getAppointmentByOverlap(appointmentID, odtStartUTC, odtEndUTC, customerID);
             if(rs.next()){
                 warningLabel.setText("Exception:\n" + "Overlapping appointments found!");
             } else {
                 warningLabel.setText("");
                 Users currentUser = MainController.getCurrentUser();
                 Contacts contact = (Contacts) contactValue;
-                Appointments appointment = new Appointments(0, title, description, location, typeValue,
+                Appointments appointment = new Appointments(appointmentID, title, description, location, typeValue,
                         odtStartUTC, odtEndUTC, currentUser, customerID, userID, contact.getContactID()
                 );
                 try {
-                    AppointmentAccessObject.createAppointment(appointment);
+                    AppointmentAccessObject.updateAppointment(appointment);
                     onCancel(actionEvent);
                 } catch (SQLIntegrityConstraintViolationException e) {
                     System.out.println(e);
@@ -281,5 +287,49 @@ public class AddAppointmentController implements Initializable {
         startUnit.setItems(getTimeUnits());
         endUnit.setItems(getTimeUnits());
 
+
+        System.out.println(appointment);
+        inputID.setText(String.valueOf(appointment.getAppointmentID()));
+        inputTitle.setText(appointment.getTitle());
+        inputDescription.setText(appointment.getDescription());
+        inputLocation.setText(appointment.getLocation());
+        dropDownContact.setValue(appointment.getContacts());
+        inputType.setText(appointment.getType());
+        startDate.setValue(appointment.getStart().toLocalDate());
+
+        int sHour;
+        String sUnit;
+        if (appointment.getStart().getHour() > 12) {
+            sHour = appointment.getStart().getHour() - 12;
+            sUnit = "PM";
+        } else if (appointment.getStart().getHour() == 0) {
+            sHour = 12;
+            sUnit = "AM";
+        } else {
+            sHour = appointment.getStart().getHour();
+            sUnit = "AM";
+        }
+        startHour.setValue((String.format("%02d", sHour)));
+        startMin.setValue((String.format("%02d", appointment.getStart().getMinute())));
+        startUnit.setValue(sUnit);
+        endDate.setValue(appointment.getEnd().toLocalDate());
+
+        int eHour;
+        String eUnit;
+        if (appointment.getEnd().getHour() > 12) {
+            eHour = appointment.getEnd().getHour() - 12;
+            eUnit = "PM";
+        } else if (appointment.getEnd().getHour() == 0) {
+            eHour = 12;
+            eUnit = "AM";
+        } else {
+            eHour = appointment.getEnd().getHour();
+            eUnit = "AM";
+        }
+        endHour.setValue((String.format("%02d", eHour)));
+        endMin.setValue((String.format("%02d", appointment.getEnd().getMinute())));
+        endUnit.setValue(eUnit);
+        inputCustomerID.setText(String.valueOf(appointment.getCustomerId()));
+        inputUserID.setText(String.valueOf(appointment.getUserId()));
     }
 }

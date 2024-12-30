@@ -3,6 +3,7 @@ package Controller;
 import DAO.AppointmentAccessObject;
 import DAO.CustomerAccessObject;
 import DAO.DatabaseConnecter;
+import DAO.ReportsQueryObject;
 import Helper.DateConverter;
 import Helper.RStoObjectMapper;
 import Model.Appointments;
@@ -142,6 +143,19 @@ public class MainController implements Initializable {
     @FXML private TableView upcomingApptTable;
     @FXML private TableColumn upcomingApptTableID;
     @FXML private TableColumn<Appointments, String>  upcomingApptTableStart;
+
+
+//    @FXML private Tab reportsTab;
+//    @FXML private Tab report1;
+//    @FXML private ScrollPane report1ScrollPane;
+//    @FXML private Tab report2;
+//    @FXML private ScrollPane report2ScrollPane;
+//    @FXML private Tab report3;
+//    @FXML private ScrollPane report3ScrollPane;
+    @FXML private TabPane reportsTabPane;
+    @FXML private Text reports1Text;
+    @FXML private Text reports2Text;
+    @FXML private Text reports3Text;
 
     private static Users currentUser;
 
@@ -375,5 +389,18 @@ public class MainController implements Initializable {
                 }
             }
         });
+
+        try {
+            reports1Text.setText(ReportsQueryObject.getReport1());
+            reports2Text.setText(ReportsQueryObject.getReport2());
+            reports3Text.setText(ReportsQueryObject.getReport3());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+//        reportsTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
+//            if (newTab != null) {
+//                System.out.println("Selected tab: " + newTab.getText());
+//            }
+//        });
     }
 }

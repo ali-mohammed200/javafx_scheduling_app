@@ -22,7 +22,7 @@ GC: G1 Young Generation, G1 Old Generation
 Memory: 2048M
 Cores: 8
 Registry:
-ide.experimental.ui=true
+  ide.experimental.ui=true
 Kotlin: 233.13135.103-IJ
 
 
@@ -45,8 +45,8 @@ The report retrieves the total number of customers based on country. This allows
 they can focus on for growth.
 
 Example:
-- Country  |  Count
+Country  |  Count
 -----------------
-- US       |   10
-- Canada   |    3
-- UK       |    7
+US           10
+Canada       3
+UK           7

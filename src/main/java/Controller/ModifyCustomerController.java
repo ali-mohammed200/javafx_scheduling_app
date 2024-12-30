@@ -16,7 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,6 +29,7 @@ import java.time.OffsetDateTime;
 import java.util.ResourceBundle;
 
 public class ModifyCustomerController implements Initializable {
+    private static Customers customer;
     @FXML
     private Stage stage;
     @FXML
@@ -48,16 +48,28 @@ public class ModifyCustomerController implements Initializable {
     private ComboBox dropDownDivision;
     @FXML
     private Label warningLabel;
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button cancelButton;
-
-    private static Customers customer;
 
     public static void setCustomer(Customers selectedCustomer) {
         System.out.println(customer);
         customer = selectedCustomer;
+    }
+
+    public static ObservableList<Countries> countryList() {
+        try {
+            ResultSet rs = CountryAccessObject.getCountries();
+            return RStoObjectMapper.rsToCountryList(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ObservableList<FirstLevelDivisions> fdlListByCountry(int id) {
+        try {
+            ResultSet rs = FirstLevelDivisionAccessObject.getFirstLevelDivisionsByCountry(id);
+            return RStoObjectMapper.rsToFDLList(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
@@ -108,15 +120,11 @@ public class ModifyCustomerController implements Initializable {
         } else {
             Users currentUser = MainController.getCurrentUser();
             FirstLevelDivisions firstLevelDivision = (FirstLevelDivisions) dropDownDivision.getValue();
-            Customers customer = new Customers(Integer.parseInt(inputID.getText()), name, address, postalCode,
-                    phoneNumber, OffsetDateTime.now(),
-                    currentUser.getUserName(), firstLevelDivision.getDivisionId());
-
+            Customers customer = new Customers(Integer.parseInt(inputID.getText()), name, address, postalCode, phoneNumber, OffsetDateTime.now(), currentUser.getUserName(), firstLevelDivision.getDivisionId());
             CustomerAccessObject.updateCustomer(customer);
-            onCancel(actionEvent); //close add parts window
+            onCancel(actionEvent);
         }
     }
-
 
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
@@ -128,28 +136,6 @@ public class ModifyCustomerController implements Initializable {
         MainController mainController = fxmlLoader.getController();
         mainController.setActiveTab(1);
         stage.show();
-    }
-
-    public static ObservableList<Countries> countryList() {
-        try {
-            ResultSet rs = CountryAccessObject.getCountries();
-
-            return RStoObjectMapper.rsToCountryList(rs);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static ObservableList<FirstLevelDivisions> fdlListByCountry(int id) {
-        try {
-            ResultSet rs = FirstLevelDivisionAccessObject.getFirstLevelDivisionsByCountry(id);
-
-            return RStoObjectMapper.rsToFDLList(rs);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Override

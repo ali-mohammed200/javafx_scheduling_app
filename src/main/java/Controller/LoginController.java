@@ -4,11 +4,9 @@ import DAO.UserAccessObject;
 import Helper.DateConverter;
 import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,9 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.ResourceBundle;
 import java.time.ZonedDateTime;
-import java.util.TimeZone;
+import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     private Users currentUser;
@@ -52,7 +49,7 @@ public class LoginController implements Initializable {
 
         logAttempt(username, "attempted");
 
-        if (username.length() == 0 || password.length() == 0){
+        if (username.length() == 0 || password.length() == 0) {
             ErrorBox.setText(resourceBundle.getString("loginInputsEmpty"));
             return;
         }
@@ -60,7 +57,7 @@ public class LoginController implements Initializable {
         try {
             ResultSet rs = UserAccessObject.getUser(username, password);
 
-            if (!rs.isBeforeFirst() ) {
+            if (!rs.isBeforeFirst()) {
                 ErrorBox.setText(resourceBundle.getString("incorrect"));
                 logAttempt(username, "failed attempt");
                 System.out.println("Invalid Login");
@@ -76,7 +73,7 @@ public class LoginController implements Initializable {
             }
             logAttempt(username, "success");
             enterApplication(currentUser);
-        } catch (SQLException | IOException e){
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -91,16 +88,16 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
-    private void logAttempt(String user, String attempt){
+    private void logAttempt(String user, String attempt) {
         String fileName = "login_activity.txt";
         File file = new File(fileName);
         String header = "Timestamp, username, attempt\n";
-        if(user.length() == 0){
+        if (user.length() == 0) {
             user = "<blank>";
         }
         String textToLog = DateConverter.readableDateFormat(OffsetDateTime.now(ZoneId.systemDefault())) + ", " + user + ", " + attempt + "\n";
 
-        if(file.exists()){
+        if (file.exists()) {
             try (FileWriter writer = new FileWriter(file, true)) {
                 writer.write(textToLog);
             } catch (IOException e) {
@@ -117,7 +114,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    protected void onExitButtonClick(){
+    protected void onExitButtonClick() {
         System.out.println("Exit");
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
@@ -128,9 +125,8 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;
         String zoneDateTimeNow = ZonedDateTime.now().toString();
-        String parsedTimeZone = zoneDateTimeNow.substring(zoneDateTimeNow.indexOf("["), zoneDateTimeNow.length());
-        String timezoneText = resourceBundle.getString("welcome") + " " + resourceBundle.getString("timezone")
-                + " " + parsedTimeZone;
+        String parsedTimeZone = zoneDateTimeNow.substring(zoneDateTimeNow.indexOf("["));
+        String timezoneText = resourceBundle.getString("welcome") + " " + resourceBundle.getString("timezone") + " " + parsedTimeZone;
         TimeZoneBox.setText(timezoneText);
         System.out.println("login");
     }

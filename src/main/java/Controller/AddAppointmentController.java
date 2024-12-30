@@ -1,9 +1,12 @@
 package Controller;
 
-import DAO.*;
+import DAO.AppointmentAccessObject;
+import DAO.ContactAccessObject;
 import Helper.DateConverter;
 import Helper.RStoObjectMapper;
-import Model.*;
+import Model.Appointments;
+import Model.Contacts;
+import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +16,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,8 +35,6 @@ import java.util.ResourceBundle;
 public class AddAppointmentController implements Initializable {
     @FXML
     private Stage stage;
-    @FXML
-    private TextField inputID;
     @FXML
     private TextField inputTitle;
     @FXML
@@ -58,22 +62,43 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private ComboBox endUnit;
     @FXML
-    private Button saveButton;
-    @FXML
-    private Button cancelButton;
-    @FXML
     private Label warningLabel;
     @FXML
     private TextField inputUserID;
     @FXML
     private TextField inputCustomerID;
 
-//    @FXML
-//    private void onCountryAction(ActionEvent actionEvent) {
-//        System.out.println(dropDownCountry.getValue());
-//        Countries country = (Countries) dropDownCountry.getValue();
-//        dropDownDivision.setItems(fdlListByCountry(country.getCountryID()));
-//    }
+    public static ObservableList<Contacts> contactList() {
+        try {
+            ResultSet rs = ContactAccessObject.getContacts();
+
+            return RStoObjectMapper.rsToContactList(rs);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static ObservableList<String> getHours() {
+        ObservableList<String> hours = FXCollections.observableArrayList(new ArrayList<String>());
+        for (int i = 1; i <= 12; i++) {
+            hours.add(String.format("%02d", i));
+        }
+        return hours;
+    }
+
+    public static ObservableList<String> getMinutes() {
+//      https://stackoverflow.com/questions/19933499/how-to-print-the-integer-00-instead-of-java-printing-0
+        ObservableList<String> minutes = FXCollections.observableArrayList(new ArrayList<String>());
+        for (int i = 0; i < 60; i++) {
+            minutes.add(String.format("%02d", i));
+        }
+        return minutes;
+    }
+
+    public static ObservableList<String> getTimeUnits() {
+        return FXCollections.observableArrayList("AM", "PM");
+    }
 
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -164,22 +189,6 @@ public class AddAppointmentController implements Initializable {
             warning += "User ID is not an integer. ";
         }
 
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(location);
-        System.out.println(contactValue);
-        System.out.println(typeValue);
-        System.out.println(startDateValue);
-        System.out.println(startHourValue);
-        System.out.println(startMinValue);
-        System.out.println(startUnitValue);
-        System.out.println(endDateValue);
-        System.out.println(endHourValue);
-        System.out.println(endMinValue);
-        System.out.println(endUnitValue);
-        System.out.println(userID);
-        System.out.println(customerID);
-
         String stringStartTime = DateConverter.buildTimeString(startHourValue, startMinValue, startUnitValue);
         OffsetDateTime odtStartLocal = DateConverter.buildOffsetDateTimeObject(stringStartTime, startDateValue);
 
@@ -193,7 +202,7 @@ public class AddAppointmentController implements Initializable {
         OffsetDateTime odtStartUTC = DateConverter.convertFromLocaltoUTC(odtStartLocal);
         OffsetDateTime odtEndUTC = DateConverter.convertFromLocaltoUTC(odtEndLocal);
 
-        if(odtStartUTC.isAfter(odtEndUTC)){
+        if (odtStartUTC.isAfter(odtEndUTC)) {
             warning += "Start can not be after end. ";
         }
 
@@ -201,15 +210,13 @@ public class AddAppointmentController implements Initializable {
             warningLabel.setText("Exception:\n" + warning);
         } else {
             ResultSet rs = AppointmentAccessObject.getAppointmentByOverlap(0, odtStartUTC, odtEndUTC, customerID);
-            if(rs.next()){
+            if (rs.next()) {
                 warningLabel.setText("Exception:\n" + "Overlapping appointments found!");
             } else {
                 warningLabel.setText("");
                 Users currentUser = MainController.getCurrentUser();
                 Contacts contact = (Contacts) contactValue;
-                Appointments appointment = new Appointments(0, title, description, location, typeValue,
-                        odtStartUTC, odtEndUTC, currentUser, customerID, userID, contact.getContactID()
-                );
+                Appointments appointment = new Appointments(0, title, description, location, typeValue, odtStartUTC, odtEndUTC, currentUser, customerID, userID, contact.getContactID());
                 try {
                     AppointmentAccessObject.createAppointment(appointment);
                     onCancel(actionEvent);
@@ -223,7 +230,6 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
-
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
@@ -234,38 +240,6 @@ public class AddAppointmentController implements Initializable {
         MainController mainController = fxmlLoader.getController();
         mainController.setActiveTab(2);
         stage.show();
-    }
-
-    public static ObservableList<Contacts> contactList() {
-        try {
-            ResultSet rs = ContactAccessObject.getContacts();
-
-            return RStoObjectMapper.rsToContactList(rs);
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static ObservableList<String> getHours() {
-        ObservableList<String> hours = FXCollections.observableArrayList(new ArrayList<String>());
-        for (int i = 1; i <= 12; i++) {
-            hours.add(String.format("%02d", i));
-        }
-        return hours;
-    }
-
-    public static ObservableList<String> getMinutes() {
-//      https://stackoverflow.com/questions/19933499/how-to-print-the-integer-00-instead-of-java-printing-0
-        ObservableList<String> minutes = FXCollections.observableArrayList(new ArrayList<String>());
-        for (int i = 0; i < 60; i++) {
-            minutes.add(String.format("%02d", i));
-        }
-        return minutes;
-    }
-
-    public static ObservableList<String> getTimeUnits() {
-        return FXCollections.observableArrayList("AM", "PM");
     }
 
     @Override

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 
 public class ReportsQueryObject {
-    //    TODO: fix and build
     public static String getReport1() throws SQLException {
         String query = "SELECT Monthname(Start) Month, Type, COUNT(*) Count FROM appointments GROUP BY Monthname(Start), Type;";
         Connection conn = DatabaseConnecter.getConnection();
@@ -26,9 +25,7 @@ public class ReportsQueryObject {
     }
 
     public static String getReport2() throws SQLException {
-        String query = "SELECT * FROM appointments\n" +
-                "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n" +
-                "ORDER BY appointments.Contact_ID ASC, start ASC;";
+        String query = "SELECT * FROM appointments\n" + "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n" + "ORDER BY appointments.Contact_ID ASC, start ASC;";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
         ResultSet result = st.executeQuery();
@@ -40,9 +37,9 @@ public class ReportsQueryObject {
             int appt_contactId = result.getInt("Contact_ID");
             String contactName = result.getString("Contact_Name");
             String contactEmail = result.getString("Email");
-            if(currentContact != appt_contactId){
+            if (currentContact != appt_contactId) {
                 currentContact = appt_contactId;
-                report += "\n" + String.valueOf(appt_contactId) + " - " + contactName + ", " + contactEmail + "\n\n";
+                report += "\n" + appt_contactId + " - " + contactName + ", " + contactEmail + "\n\n";
             }
 
             int appt_id = result.getInt("Appointment_ID");
@@ -54,19 +51,16 @@ public class ReportsQueryObject {
             int appt_custId = result.getInt("Customer_ID");
 
             report += "\t\t\t";
-            report += String.valueOf(appt_id) + ", " + appt_title + ", " + appt_type + ", " + appt_description + ", ";
+            report += appt_id + ", " + appt_title + ", " + appt_type + ", " + appt_description + ", ";
             report += DateConverter.readableDateFormat(appt_start) + " - " + DateConverter.readableDateFormat(appt_end) + ", ";
-            report += String.valueOf(appt_custId) + "\n";
+            report += appt_custId + "\n";
         }
 
         return report;
     }
 
     public static String getReport3() throws SQLException {
-        String query = "SELECT Country, Count(*) Count FROM customers\n" +
-                "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" +
-                "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID\n" +
-                "GROUP BY Country;";
+        String query = "SELECT Country, Count(*) Count FROM customers\n" + "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" + "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID\n" + "GROUP BY Country;";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
         ResultSet result = st.executeQuery();

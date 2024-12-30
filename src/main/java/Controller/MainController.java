@@ -27,7 +27,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -38,34 +37,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    private static Users currentUser;
+    private final ToggleGroup group = new ToggleGroup();
+    @FXML
+    public Tab customerTab;
+    @FXML
+    public SingleSelectionModel<Tab> selectionModel;
     @FXML
     private Stage stage;
     @FXML
     private AnchorPane mainPane;
     @FXML
-    private Button exitButton;
-    @FXML
-    private Tab mainTab;
-    @FXML
-    public Tab customerTab;
-    @FXML
-    private Tab apptTab;
-    @FXML
-    private TabPane tabPane; //= new TabPane(mainTab, customerTab, apptTab);
-    @FXML
-    public SingleSelectionModel<Tab> selectionModel; // = tabPane.getSelectionModel();
-
-    @FXML
-    private AnchorPane mainAnchorPane;
-    @FXML
-    private AnchorPane customerAnchorPane;
-    @FXML
-    private Pane customerPane;
+    private TabPane tabPane;
     @FXML
     private TableView customerTable;
     @FXML
@@ -87,17 +74,7 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Customers, String> cCountry;
     @FXML
-    private Button addCustButton;
-    @FXML
-    private Button modifyCustButton;
-    @FXML
-    private Button deleteCustButton;
-    @FXML
     private Label custWarning;
-    @FXML
-    private AnchorPane apptAnchorPane;
-    @FXML
-    private Pane apptPane;
     @FXML
     private TableView apptTable;
     @FXML
@@ -124,40 +101,28 @@ public class MainController implements Initializable {
     private TableColumn<Appointments, String> cApptContactName;
     @FXML
     private TableColumn<Appointments, String> cApptContactEmail;
-    private final ToggleGroup group = new ToggleGroup();
-    @FXML private RadioButton weekButton;
-    @FXML private RadioButton monthButton;
-    @FXML private RadioButton allButton;
     @FXML
-    private Button addApptButton;
+    private RadioButton weekButton;
     @FXML
-    private Button modifyApptButton;
+    private RadioButton monthButton;
     @FXML
-    private Button deleteApptButton;
+    private RadioButton allButton;
     @FXML
     private Label apptWarning;
-
-    @FXML private Text greetingLabel;
-    @FXML private Text apptsLabel;
-
-    @FXML private TableView upcomingApptTable;
-    @FXML private TableColumn upcomingApptTableID;
-    @FXML private TableColumn<Appointments, String>  upcomingApptTableStart;
-
-
-//    @FXML private Tab reportsTab;
-//    @FXML private Tab report1;
-//    @FXML private ScrollPane report1ScrollPane;
-//    @FXML private Tab report2;
-//    @FXML private ScrollPane report2ScrollPane;
-//    @FXML private Tab report3;
-//    @FXML private ScrollPane report3ScrollPane;
-    @FXML private TabPane reportsTabPane;
-    @FXML private Text reports1Text;
-    @FXML private Text reports2Text;
-    @FXML private Text reports3Text;
-
-    private static Users currentUser;
+    @FXML
+    private Text greetingLabel;
+    @FXML
+    private TableView upcomingApptTable;
+    @FXML
+    private TableColumn upcomingApptTableID;
+    @FXML
+    private TableColumn<Appointments, String> upcomingApptTableStart;
+    @FXML
+    private Text reports1Text;
+    @FXML
+    private Text reports2Text;
+    @FXML
+    private Text reports3Text;
 
     public static Users getCurrentUser() {
         return currentUser;
@@ -167,16 +132,10 @@ public class MainController implements Initializable {
         currentUser = user;
     }
 
-    public void setActiveTab(int tab){
-        selectionModel.select(tab);
-    }
-
     public static ObservableList<Customers> customerList() {
         try {
             ResultSet rs = CustomerAccessObject.getAllCustomersWithFDLData();
-
             return RStoObjectMapper.rsToCustomerList(rs);
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -187,10 +146,13 @@ public class MainController implements Initializable {
             ResultSet rs = AppointmentAccessObject.getAllAppointmentsWithContacts();
             Appointments.setAllAppointments(RStoObjectMapper.rsToApptList(rs));
             return Appointments.getAllAppointments();
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setActiveTab(int tab) {
+        selectionModel.select(tab);
     }
 
     @FXML
@@ -206,17 +168,15 @@ public class MainController implements Initializable {
     @FXML
     protected void onModifyCustomer(ActionEvent event) throws IOException {
         Customers selectedCustomer = (Customers) customerTable.getSelectionModel().getSelectedItem();
-//        Integer selectedIndex = tableProduct.getSelectionModel().getSelectedIndex();
         if (selectedCustomer != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/modify-customer-view.fxml"));
-            ModifyCustomerController modifyCustomerController = (ModifyCustomerController) fxmlLoader.getController();
+            ModifyCustomerController modifyCustomerController = fxmlLoader.getController();
             System.out.println(selectedCustomer);
-            modifyCustomerController.setCustomer(selectedCustomer);
+            ModifyCustomerController.setCustomer(selectedCustomer);
 
             Scene scene = new Scene(fxmlLoader.load());
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Modify Customer");
-//            stage.setY(0);
             stage.setScene(scene);
             stage.show();
 
@@ -276,20 +236,17 @@ public class MainController implements Initializable {
 
     public void onModifyAppointment(ActionEvent event) throws IOException {
         Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
-//        Integer selectedIndex = tableProduct.getSelectionModel().getSelectedIndex();
         if (selectedAppointment != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/modify-appointment-view.fxml"));
-            ModifyAppointmentController modifyAppointmentController = (ModifyAppointmentController) fxmlLoader.getController();
+            ModifyAppointmentController modifyAppointmentController = fxmlLoader.getController();
             System.out.println(selectedAppointment);
-            modifyAppointmentController.setAppointment(selectedAppointment);
+            ModifyAppointmentController.setAppointment(selectedAppointment);
 
             Scene scene = new Scene(fxmlLoader.load());
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Modify Appointment");
-//            stage.setY(0);
             stage.setScene(scene);
             stage.show();
-
         } else {
             setWarningLabel("No Appointment selected to modify. ", apptWarning);
         }
@@ -367,7 +324,7 @@ public class MainController implements Initializable {
         cApptContactName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getContactName()));
         cApptContactEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getEmail()));
 
-        FilteredList<Appointments> filteredList = new FilteredList<> (FXCollections.observableList(Appointments.getAllAppointments()));
+        FilteredList<Appointments> filteredList = new FilteredList<>(FXCollections.observableList(Appointments.getAllAppointments()));
         upcomingApptTable.setItems(filteredList);
         filteredList.setPredicate(Appointments.getAppointmentsWithin15Minutes());
 
@@ -397,10 +354,5 @@ public class MainController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-//        reportsTabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldTab, newTab) -> {
-//            if (newTab != null) {
-//                System.out.println("Selected tab: " + newTab.getText());
-//            }
-//        });
     }
 }

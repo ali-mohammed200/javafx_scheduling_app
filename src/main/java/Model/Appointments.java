@@ -6,78 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
-import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.function.Predicate;
-
 import java.time.DayOfWeek;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class Appointments {
-    private static FilteredList<Appointments> allAppointments = new FilteredList<> (FXCollections.observableList(new ArrayList<Appointments>()));
-    public static void setAllAppointments(ObservableList<Appointments> appointments) {
-        allAppointments = new FilteredList<>(appointments);
-    }
-    public static FilteredList<Appointments> getAllAppointments() {
-        return allAppointments;
-    }
-
-    public static Predicate<Appointments> getAppointmentsWithin15Minutes() {
-        Predicate<Appointments> within15 = i -> isWithin15Min(i.getUserId(), i.getStart());
-        return within15;
-    }
-    public static Predicate<Appointments> getCurrentWeekAppointments() {
-        Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
-        return withinWeek;
-    }
-    public static Predicate<Appointments> getCurrentMonthAppointments() {
-        Predicate<Appointments> withinMonth = i -> isInCurrentMonth(i.getStart());
-        return withinMonth;
-    }
-
-    public static boolean isWithin15Min(int userID, OffsetDateTime dateTime) {
-        // Get the current date and time in the system default time zone
-        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
-        System.out.println(ZoneId.systemDefault());
-        System.out.println(now);
-
-        // Check if the given date is within the current week
-        return !dateTime.isBefore(now) && !dateTime.isAfter(now.plusMinutes(15)) && userID == MainController.getCurrentUser().getUserID();
-    }
-
-    public static boolean isInCurrentWeek(OffsetDateTime dateTime) {
-        // Get the current date and time in the system default time zone
-        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
-        System.out.println(ZoneId.systemDefault());
-        System.out.println(now);
-
-        // Find the start of the current week (Monday)
-        OffsetDateTime startOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
-
-        // Find the end of the current week (Sunday)
-        OffsetDateTime endOfWeek = now.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
-
-        // Check if the given date is within the current week
-        return !dateTime.isBefore(startOfWeek) && !dateTime.isAfter(endOfWeek);
-    }
-
-    public static boolean isInCurrentMonth(OffsetDateTime dateTime) {
-        // Get the current date and time in the system default time zone
-        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
-
-        // Find the start of the current month (first day of the month at start of the day)
-        OffsetDateTime startOfMonth = now.with(TemporalAdjusters.firstDayOfMonth()).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
-
-        // Find the end of the current month (last day of the month at the end of the day)
-        OffsetDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth()).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
-
-        // Check if the given date is within the current month
-        return !dateTime.isBefore(startOfMonth) && !dateTime.isAfter(endOfMonth);
-    }
-
+    private static FilteredList<Appointments> allAppointments = new FilteredList<>(FXCollections.observableList(new ArrayList<Appointments>()));
     private int appointmentID;
     private String title;
     private String description;
@@ -93,10 +30,7 @@ public class Appointments {
     private int userId;
     private int contactId;
     private Contacts contacts;
-
-
-    public Appointments(int appointmentID, String title, String description, String location, String type,
-                        OffsetDateTime start, OffsetDateTime end, Users user, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, Users user, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -106,14 +40,13 @@ public class Appointments {
         this.end = end;
         this.createDate = DateConverter.convertFromLocaltoUTC(OffsetDateTime.now());
         this.createdBy = user.getUserName();
-        this.lastUpdate = DateConverter.convertFromLocaltoUTC(OffsetDateTime.now());;
+        this.lastUpdate = DateConverter.convertFromLocaltoUTC(OffsetDateTime.now());
         this.lastUpdatedBy = user.getUserName();
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
     }
-    public Appointments(int appointmentID, String title, String description, String location, String type,
-                        OffsetDateTime start, OffsetDateTime end, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -125,10 +58,7 @@ public class Appointments {
         this.userId = userId;
         this.contactId = contactId;
     }
-
-    public Appointments(int appointmentID, String title, String description, String location, String type,
-                        OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy,
-                        OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -143,6 +73,48 @@ public class Appointments {
         this.customerId = customerId;
         this.userId = userId;
         this.contactId = contactId;
+    }
+
+    public static FilteredList<Appointments> getAllAppointments() {
+        return allAppointments;
+    }
+
+    public static void setAllAppointments(ObservableList<Appointments> appointments) {
+        allAppointments = new FilteredList<>(appointments);
+    }
+
+    public static Predicate<Appointments> getAppointmentsWithin15Minutes() {
+        Predicate<Appointments> within15 = i -> isWithin15Min(i.getUserId(), i.getStart());
+        return within15;
+    }
+
+    public static Predicate<Appointments> getCurrentWeekAppointments() {
+        Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
+        return withinWeek;
+    }
+
+    public static Predicate<Appointments> getCurrentMonthAppointments() {
+        Predicate<Appointments> withinMonth = i -> isInCurrentMonth(i.getStart());
+        return withinMonth;
+    }
+
+    public static boolean isWithin15Min(int userID, OffsetDateTime dateTime) {
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+        return !dateTime.isBefore(now) && !dateTime.isAfter(now.plusMinutes(15)) && userID == MainController.getCurrentUser().getUserID();
+    }
+
+    public static boolean isInCurrentWeek(OffsetDateTime dateTime) {
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+        OffsetDateTime startOfWeek = now.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
+        OffsetDateTime endOfWeek = now.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY)).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
+        return !dateTime.isBefore(startOfWeek) && !dateTime.isAfter(endOfWeek);
+    }
+
+    public static boolean isInCurrentMonth(OffsetDateTime dateTime) {
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+        OffsetDateTime startOfMonth = now.with(TemporalAdjusters.firstDayOfMonth()).toLocalDate().atStartOfDay(now.getOffset()).toOffsetDateTime();
+        OffsetDateTime endOfMonth = now.with(TemporalAdjusters.lastDayOfMonth()).toLocalDate().atTime(23, 59, 59).atOffset(now.getOffset());
+        return !dateTime.isBefore(startOfMonth) && !dateTime.isAfter(endOfMonth);
     }
 
     public int getAppointmentID() {
@@ -201,11 +173,11 @@ public class Appointments {
         this.end = end;
     }
 
-    public String formattedStart(){
+    public String formattedStart() {
         return DateConverter.readableDateFormat(this.start);
     }
 
-    public String formattedEnd(){
+    public String formattedEnd() {
         return DateConverter.readableDateFormat(this.end);
     }
 
@@ -274,25 +246,8 @@ public class Appointments {
     }
 
 
-
     @Override
     public String toString() {
-        return "Appointments{" +
-                "appointmentID=" + appointmentID +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", location='" + location + '\'' +
-                ", type='" + type + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                ", createDate=" + createDate +
-                ", createdBy='" + createdBy + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", customerId=" + customerId +
-                ", userId=" + userId +
-                ", contactId=" + contactId +
-                ", contacts=" + contacts +
-                '}';
+        return "Appointments{" + "appointmentID=" + appointmentID + ", title='" + title + '\'' + ", description='" + description + '\'' + ", location='" + location + '\'' + ", type='" + type + '\'' + ", start=" + start + ", end=" + end + ", createDate=" + createDate + ", createdBy='" + createdBy + '\'' + ", lastUpdate=" + lastUpdate + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + ", customerId=" + customerId + ", userId=" + userId + ", contactId=" + contactId + ", contacts=" + contacts + '}';
     }
 }

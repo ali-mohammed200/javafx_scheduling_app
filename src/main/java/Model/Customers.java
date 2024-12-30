@@ -1,19 +1,18 @@
 package Model;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 
 public class Customers {
     private FirstLevelDivisions firstLevelDivision;
     private int customerId;
     private String customerName;
-    private String  address;
-    private String  postalCode;
-    private String  phone;
+    private String address;
+    private String postalCode;
+    private String phone;
     private OffsetDateTime createDate;
-    private String  createdBy;
+    private String createdBy;
     private OffsetDateTime lastUpdate;
-    private String  lastUpdatedBy;
+    private String lastUpdatedBy;
     private int divisionId;
 
     public Customers(String customerName, String address, String postalCode, String phone, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
@@ -140,18 +139,6 @@ public class Customers {
 
     @Override
     public String toString() {
-        return "Customers{" +
-                "firstLevelDivision=" + firstLevelDivision +
-                ", customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", address='" + address + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", createDate=" + createDate +
-                ", createdBy='" + createdBy + '\'' +
-                ", lastUpdate=" + lastUpdate +
-                ", lastUpdatedBy='" + lastUpdatedBy + '\'' +
-                ", divisionId=" + divisionId +
-                '}';
+        return "Customers{" + "firstLevelDivision=" + firstLevelDivision + ", customerId=" + customerId + ", customerName='" + customerName + '\'' + ", address='" + address + '\'' + ", postalCode='" + postalCode + '\'' + ", phone='" + phone + '\'' + ", createDate=" + createDate + ", createdBy='" + createdBy + '\'' + ", lastUpdate=" + lastUpdate + ", lastUpdatedBy='" + lastUpdatedBy + '\'' + ", divisionId=" + divisionId + '}';
     }
 }

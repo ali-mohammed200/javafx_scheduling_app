@@ -76,7 +76,7 @@ public class ModifyAppointmentController implements Initializable {
 
     /**
      * Function to set an appointment for editing
-     * @param selectedAppointment
+     * @param selectedAppointment selectedAppointment
      */
     public static void setAppointment(Appointments selectedAppointment) {
         appointment = selectedAppointment;
@@ -85,7 +85,7 @@ public class ModifyAppointmentController implements Initializable {
 
     /**
      * Function to return an ObservableList of Contacts
-     * @return ObservableList<Contacts>
+     * @return ObservableList Contacts
      */
     public static ObservableList<Contacts> contactList() {
         try {
@@ -101,7 +101,7 @@ public class ModifyAppointmentController implements Initializable {
      * Function to return an ObservableList of Integers 1-12 (Hours)
      * in String format.
      * Example -> 01, 02, 03, 04... 12
-     * @return ObservableList<String>
+     * @return ObservableList String
      */
     public static ObservableList<String> getHours() {
         ObservableList<String> hours = FXCollections.observableArrayList(new ArrayList<String>());
@@ -115,7 +115,7 @@ public class ModifyAppointmentController implements Initializable {
      * Function to return an ObservableList of Integers 1-60 (Minutes)
      * in String format.
      * Example -> 01, 02, 03, 04... 60
-     * @return ObservableList<String>
+     * @return ObservableList String
      */
     public static ObservableList<String> getMinutes() {
         ObservableList<String> minutes = FXCollections.observableArrayList(new ArrayList<String>());
@@ -128,7 +128,7 @@ public class ModifyAppointmentController implements Initializable {
     /**
      * Function to return an ObservableList of Strings
      * AM/PM (ante meridiem and post meridiem time unit)
-     * @return ObservableList<String>
+     * @return ObservableList String
      */
     public static ObservableList<String> getTimeUnits() {
         return FXCollections.observableArrayList("AM", "PM");
@@ -142,9 +142,9 @@ public class ModifyAppointmentController implements Initializable {
      *      - Start and End must be within business hours EST 8am -10pm Weekdays
      *      - Must not overlap with other appointments
      * - Sends appointmentID when checking for overlap
-     * @param actionEvent
-     * @throws SQLException
-     * @throws IOException
+     * @param actionEvent actionEvent
+     * @throws SQLException SQLException
+     * @throws IOException IOException
      */
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -280,8 +280,8 @@ public class ModifyAppointmentController implements Initializable {
 
     /**
      * Event Handler for canceling appointment modification
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent actionEvent
+     * @throws IOException IOException
      */
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
@@ -298,8 +298,8 @@ public class ModifyAppointmentController implements Initializable {
     /**
      * Overrides the initialize method of the Initializable interface
      * sets data on the screen for modification
-     * @param url
-     * @param resourceBundle
+     * @param url url
+     * @param resourceBundle resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

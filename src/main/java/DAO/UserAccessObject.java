@@ -11,10 +11,10 @@ import java.sql.SQLException;
 public class UserAccessObject {
     /**
      * Function to get the user from the database
-     * @param username
-     * @param password
+     * @param username username
+     * @param password password
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getUser(String username, String password) throws SQLException {
         String query = "SELECT * FROM users WHERE User_name = ? AND Password = ?";

@@ -20,15 +20,15 @@ public class Customers {
 
     /**
      * Customers Constructor
-     * @param customerName
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
-     * @param divisionId
+     * @param customerName customerName
+     * @param address address
+     * @param postalCode postalCode
+     * @param phone phone
+     * @param createDate createDate
+     * @param createdBy createdBy
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
+     * @param divisionId divisionId
      */
     public Customers(String customerName, String address, String postalCode, String phone, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
         this.customerName = customerName;
@@ -44,12 +44,12 @@ public class Customers {
 
     /**
      * Customers Constructor
-     * @param customerId
-     * @param customerName
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param divisionId
+     * @param customerId customerId
+     * @param customerName customerName
+     * @param address address
+     * @param postalCode postalCode
+     * @param phone phone
+     * @param divisionId divisionId
      */
     public Customers(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
         this.customerId = customerId;
@@ -62,14 +62,14 @@ public class Customers {
 
     /**
      * Customers Constructor
-     * @param customerId
-     * @param customerName
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param lastUpdate
-     * @param lastUpdatedBy
-     * @param divisionId
+     * @param customerId customerId
+     * @param customerName customerName
+     * @param address address
+     * @param postalCode postalCode
+     * @param phone phone
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
+     * @param divisionId divisionId
      */
     public Customers(int customerId, String customerName, String address, String postalCode, String phone, OffsetDateTime lastUpdate, String lastUpdatedBy, int divisionId) {
         this.customerId = customerId;
@@ -92,7 +92,7 @@ public class Customers {
 
     /**
      * Function to set customerId
-     * @param customerId
+     * @param customerId customerId
      */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
@@ -108,7 +108,7 @@ public class Customers {
 
     /**
      * Function to set customerName
-     * @param customerName
+     * @param customerName customerName
      */
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
@@ -124,7 +124,7 @@ public class Customers {
 
     /**
      * Function to set address
-     * @param address
+     * @param address address
      */
     public void setAddress(String address) {
         this.address = address;
@@ -140,7 +140,7 @@ public class Customers {
 
     /**
      * Function to set postalCode
-     * @param postalCode
+     * @param postalCode postalCode
      */
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
@@ -156,7 +156,7 @@ public class Customers {
 
     /**
      * Function to set phone
-     * @param phone
+     * @param phone phone
      */
     public void setPhone(String phone) {
         this.phone = phone;
@@ -172,7 +172,7 @@ public class Customers {
 
     /**
      * Function to set createDate
-     * @param createDate
+     * @param createDate createDate
      */
     public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
@@ -188,7 +188,7 @@ public class Customers {
 
     /**
      * Function to set createdBy
-     * @param createdBy
+     * @param createdBy createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -204,7 +204,7 @@ public class Customers {
 
     /**
      * Function to set lastUpdate
-     * @param lastUpdate
+     * @param lastUpdate lastUpdate
      */
     public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -220,7 +220,7 @@ public class Customers {
 
     /**
      * Function to set lastUpdateBy
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
@@ -236,7 +236,7 @@ public class Customers {
 
     /**
      * Function to set divisionId
-     * @param divisionId
+     * @param divisionId divisionId
      */
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
@@ -253,7 +253,7 @@ public class Customers {
 
     /**
      * Function to set firstLevelDivision
-     * @param firstLevelDivision
+     * @param firstLevelDivision firstLevelDivision
      */
     public void setFirstLevelDivision(FirstLevelDivisions firstLevelDivision) {
         this.firstLevelDivision = firstLevelDivision;

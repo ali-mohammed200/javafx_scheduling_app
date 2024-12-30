@@ -12,7 +12,7 @@ public class ContactAccessObject {
     /**
      * Function to get all contacts from the database
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getContacts() throws SQLException {
         String query = "SELECT * FROM contacts";

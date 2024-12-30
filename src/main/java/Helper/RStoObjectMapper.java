@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class RStoObjectMapper {
     /**
      * Function to turn a ResultSet to an ObservableList of Customers
-     * @param rs
-     * @return ObservableList<Customers>
-     * @throws SQLException
+     * @param rs rs
+     * @return ObservableList Customers
+     * @throws SQLException SQLException
      */
     public static ObservableList<Customers> rsToCustomerList(ResultSet rs) throws SQLException {
         ObservableList<Customers> customers = FXCollections.observableArrayList(new ArrayList<Customers>());
@@ -55,9 +55,9 @@ public class RStoObjectMapper {
 
     /**
      * Function to turn a ResultSet to an ObservableList of Appointments
-     * @param rs
-     * @return ObservableList<Appointments>
-     * @throws SQLException
+     * @param rs rs
+     * @return ObservableList Appointments
+     * @throws SQLException SQLException
      */
     public static ObservableList<Appointments> rsToApptList(ResultSet rs) throws SQLException {
         ObservableList<Appointments> appointments = FXCollections.observableArrayList(new ArrayList<Appointments>());
@@ -93,9 +93,9 @@ public class RStoObjectMapper {
 
     /**
      * Function to turn a ResultSet to an ObservableList of Countries
-     * @param rs
-     * @return ObservableList<Countries>
-     * @throws SQLException
+     * @param rs rs
+     * @return ObservableList Countries
+     * @throws SQLException SQLException
      */
     public static ObservableList<Countries> rsToCountryList(ResultSet rs) throws SQLException {
         ObservableList<Countries> countries = FXCollections.observableArrayList(new ArrayList<Countries>());
@@ -112,9 +112,9 @@ public class RStoObjectMapper {
 
     /**
      * Function to turn a ResultSet to an ObservableList of FirstLevelDivisions
-     * @param rs
-     * @return ObservableList<FirstLevelDivisions>
-     * @throws SQLException
+     * @param rs rs
+     * @return ObservableList FirstLevelDivisions
+     * @throws SQLException SQLException
      */
     public static ObservableList<FirstLevelDivisions> rsToFDLList(ResultSet rs) throws SQLException {
         ObservableList<FirstLevelDivisions> firstLevelDivisions = FXCollections.observableArrayList(new ArrayList<FirstLevelDivisions>());
@@ -132,9 +132,9 @@ public class RStoObjectMapper {
 
     /**
      * Function to turn a ResultSet to an ObservableList of Contacts
-     * @param rs
-     * @return ObservableList<Contacts>
-     * @throws SQLException
+     * @param rs rs
+     * @return ObservableList Contacts
+     * @throws SQLException SQLException
      */
     public static ObservableList<Contacts> rsToContactList(ResultSet rs) throws SQLException {
         ObservableList<Contacts> contacts = FXCollections.observableArrayList(new ArrayList<Contacts>());

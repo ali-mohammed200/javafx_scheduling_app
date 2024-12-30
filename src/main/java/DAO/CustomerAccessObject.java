@@ -14,7 +14,7 @@ public class CustomerAccessObject {
     /**
      * Function to get all customers with first_level_divisions from the database
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getAllCustomersWithFDLData() throws SQLException {
         String query = "SELECT * FROM customers\n" + "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" + "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID;";
@@ -27,9 +27,9 @@ public class CustomerAccessObject {
 
     /**
      * Function to create a customer in the database
-     * @param customer
+     * @param customer customer
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int createCustomer(Customers customer) throws SQLException {
         System.out.println(customer.getCreateDate());
@@ -53,9 +53,9 @@ public class CustomerAccessObject {
 
     /**
      * Function to update a customer in the database
-     * @param customer
+     * @param customer customer
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int updateCustomer(Customers customer) throws SQLException {
         String query = "UPDATE customers SET ";
@@ -78,9 +78,9 @@ public class CustomerAccessObject {
 
     /**
      * Function to delete a customer in the database along with their associated appointments
-     * @param customerID
+     * @param customerID customerID
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int deleteCustomerWithAppts(int customerID) throws SQLException {
 //        https://stackoverflow.com/questions/3331992/how-to-delete-from-multiple-tables-in-mysql

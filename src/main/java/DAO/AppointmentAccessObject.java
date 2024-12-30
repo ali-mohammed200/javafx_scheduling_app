@@ -15,7 +15,7 @@ public class AppointmentAccessObject {
     /**
      * Function to get all appointments with contacts from the database
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getAllAppointmentsWithContacts() throws SQLException {
         String query = "SELECT * FROM appointments " + "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n";
@@ -31,12 +31,12 @@ public class AppointmentAccessObject {
      * Function to check appointment overlaps
      * If an appointmentID is less than 1, it is not used in the sql query
      * Valid appointmentID is passed in ModifyAppointmentController
-     * @param appointmentID
-     * @param start
-     * @param end
-     * @param Customer_ID
+     * @param appointmentID appointmentID
+     * @param start start
+     * @param end end
+     * @param Customer_ID Customer_ID
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getAppointmentByOverlap(int appointmentID, OffsetDateTime start, OffsetDateTime end, Integer Customer_ID) throws SQLException {
         String query = "SELECT * FROM appointments WHERE Customer_ID = ? ";
@@ -67,9 +67,9 @@ public class AppointmentAccessObject {
 
     /**
      * Function to create an appointment in the database
-     * @param appt
+     * @param appt appt
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int createAppointment(Appointments appt) throws SQLException {
         String query = "INSERT INTO appointments ";
@@ -98,9 +98,9 @@ public class AppointmentAccessObject {
 
     /**
      * Function to update an appointment in the database
-     * @param appt
+     * @param appt appt
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int updateAppointment(Appointments appt) throws SQLException {
         String query = "UPDATE appointments SET ";
@@ -131,9 +131,9 @@ public class AppointmentAccessObject {
 
     /**
      * Function to delete an appointment in the database
-     * @param apptID
+     * @param apptID apptID
      * @return int
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static int deleteAppointment(int apptID) throws SQLException {
         String query = "DELETE FROM appointments WHERE Appointment_ID = ?";

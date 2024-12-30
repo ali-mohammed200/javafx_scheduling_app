@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class MainApplication extends Application {
     /**
      * main function - entry point of the application
-     * @param args
+     * @param args args
      */
     public static void main(String[] args) {
         DatabaseConnecter.setConnection();
@@ -36,8 +36,8 @@ public class MainApplication extends Application {
      *  - sets locale
      *  - loads login screen
      *
-     * @param stage
-     * @throws IOException
+     * @param stage stage
+     * @throws IOException IOException
      */
     @Override
     public void start(Stage stage) throws IOException {

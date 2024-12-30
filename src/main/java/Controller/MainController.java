@@ -145,7 +145,7 @@ public class MainController implements Initializable {
 
     /**
      * Function to set CurrentUser
-     * @param user
+     * @param user user
      */
     public static void setCurrentUser(Users user) {
         currentUser = user;
@@ -153,7 +153,7 @@ public class MainController implements Initializable {
 
     /**
      * Function to return an ObservableList of Customers
-     * @return ObservableList<Customers>
+     * @return ObservableList Customers
      */
     public static ObservableList<Customers> customerList() {
         try {
@@ -166,7 +166,7 @@ public class MainController implements Initializable {
 
     /**
      * Function to return an ObservableList of Appointments
-     * @return ObservableList<Appointments>
+     * @return ObservableList Appointments
      */
     public static ObservableList<Appointments> apptList() {
         try {
@@ -180,7 +180,7 @@ public class MainController implements Initializable {
 
     /**
      * Function to set the active tab
-     * @param tab
+     * @param tab tab
      */
     public void setActiveTab(int tab) {
         selectionModel.select(tab);
@@ -188,8 +188,8 @@ public class MainController implements Initializable {
 
     /**
      * Event Handler to open Add Customer Form
-     * @param event
-     * @throws IOException
+     * @param event event
+     * @throws IOException IOException
      */
     @FXML
     protected void onAddCustomer(ActionEvent event) throws IOException {
@@ -203,8 +203,8 @@ public class MainController implements Initializable {
 
     /**
      * Event Handler to open Modify Customer Form
-     * @param event
-     * @throws IOException
+     * @param event event
+     * @throws IOException IOException
      */
     @FXML
     protected void onModifyCustomer(ActionEvent event) throws IOException {
@@ -229,8 +229,8 @@ public class MainController implements Initializable {
     /**
      * Function which sets a warning animation on a label
      * fades after 2 seconds
-     * @param warning
-     * @param label
+     * @param warning warning
+     * @param label label
      */
     @FXML
     protected void setWarningLabel(String warning, Label label) {
@@ -255,8 +255,8 @@ public class MainController implements Initializable {
     /**
      * Event Handler for deleting a customer
      * Loads an alert modal for confirmation
-     * @param event
-     * @throws SQLException
+     * @param event event
+     * @throws SQLException SQLException
      */
     @FXML
     protected void onDeleteCustomer(ActionEvent event) throws SQLException {
@@ -283,7 +283,7 @@ public class MainController implements Initializable {
     /**
      * Event handler to exit the application
      * Closes the database connection
-     * @param event
+     * @param event event
      */
     @FXML
     protected void onExitApplication(ActionEvent event) {
@@ -294,8 +294,8 @@ public class MainController implements Initializable {
 
     /**
      * Event Handler to open Modify Appointment Form
-     * @param event
-     * @throws IOException
+     * @param event event
+     * @throws IOException IOException
      */
     public void onModifyAppointment(ActionEvent event) throws IOException {
         Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
@@ -318,8 +318,8 @@ public class MainController implements Initializable {
     /**
      * Event Handler for deleting an appointment
      * Loads an alert modal for confirmation
-     * @param actionEvent
-     * @throws SQLException
+     * @param actionEvent actionEvent
+     * @throws SQLException SQLException
      */
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
         Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
@@ -343,8 +343,8 @@ public class MainController implements Initializable {
 
     /**
      * Event Handler to open Add Appointment Form
-     * @param event
-     * @throws IOException
+     * @param event event
+     * @throws IOException IOException
      */
     @FXML
     protected void onAddAppointment(ActionEvent event) throws IOException {
@@ -372,8 +372,8 @@ public class MainController implements Initializable {
      * - The filteredLists also use a lambda
      * @see "src/main/java/Model/Appointments.java"
      *
-     * @param url
-     * @param resourceBundle
+     * @param url url
+     * @param resourceBundle resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

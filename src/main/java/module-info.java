@@ -1,3 +1,6 @@
+/**
+ * Module com.c195_pa.schedulingsystem
+ */
 module com.c195_pa.schedulingsystem {
     requires javafx.controls;
     requires javafx.fxml;

@@ -15,12 +15,12 @@ public class Countries {
 
     /**
      * Countries Constructor
-     * @param countryID
-     * @param countryName
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
+     * @param countryID countryID
+     * @param countryName countryName
+     * @param createDate createDate
+     * @param createdBy createdBy
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public Countries(int countryID, String countryName, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy) {
         this.countryID = countryID;
@@ -33,8 +33,8 @@ public class Countries {
 
     /**
      * Countries Constructor
-     * @param countryID
-     * @param countryName
+     * @param countryID countryID
+     * @param countryName countryName
      */
     public Countries(int countryID, String countryName) {
         this.countryID = countryID;
@@ -51,7 +51,7 @@ public class Countries {
 
     /**
      * Function to set countryID
-     * @param countryID
+     * @param countryID countryID
      */
     public void setCountryID(int countryID) {
         this.countryID = countryID;
@@ -67,7 +67,7 @@ public class Countries {
 
     /**
      * Function to set countryName
-     * @param countryName
+     * @param countryName countryName
      */
     public void setCountryName(String countryName) {
         this.countryName = countryName;
@@ -83,7 +83,7 @@ public class Countries {
 
     /**
      * Function to set createDate
-     * @param createDate
+     * @param createDate createDate
      */
     public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
@@ -99,7 +99,7 @@ public class Countries {
 
     /**
      * Function to set createdBy
-     * @param createdBy
+     * @param createdBy createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -115,7 +115,7 @@ public class Countries {
 
     /**
      * Function to set lastUpdate
-     * @param lastUpdate
+     * @param lastUpdate lastUpdate
      */
     public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -123,7 +123,7 @@ public class Countries {
 
     /**
      * Function to get lastUpdatedBy
-     * @return
+     * @return String
      */
     public String getLastUpdatedBy() {
         return lastUpdatedBy;
@@ -131,7 +131,7 @@ public class Countries {
 
     /**
      * Function to set lastUpdatedBy
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;

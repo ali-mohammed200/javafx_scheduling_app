@@ -14,7 +14,7 @@ public class DateConverter {
     /**
      * Function to check if an offsetdatetime is within business hours
      * - 8am - 10pm EST on Weekdays
-     * @param odt
+     * @param odt odt
      * @return Boolean
      */
     public static Boolean withinBusinessHours(OffsetDateTime odt) {
@@ -34,9 +34,9 @@ public class DateConverter {
     /**
      * Function to build a time string
      * Uses 24 format
-     * @param hour
-     * @param min
-     * @param unit
+     * @param hour hour
+     * @param min min
+     * @param unit unit
      * @return String
      */
     public static String buildTimeString(String hour, String min, String unit) {
@@ -53,8 +53,8 @@ public class DateConverter {
 
     /**
      * Function to build offsetdatetime object
-     * @param timeString
-     * @param localDate
+     * @param timeString timeString
+     * @param localDate localDate
      * @return OffsetDateTime
      */
     public static OffsetDateTime buildOffsetDateTimeObject(String timeString, LocalDate localDate) {
@@ -69,7 +69,7 @@ public class DateConverter {
 
     /**
      * Function to convert offsetdatetime from UTC to Local time
-     * @param ofdt
+     * @param ofdt ofdt
      * @return OffsetDateTime
      */
     public static OffsetDateTime convertFromUTCtoLocal(OffsetDateTime ofdt) {
@@ -79,7 +79,7 @@ public class DateConverter {
 
     /**
      * Function to convert offsetdatetime from local time to UTC
-     * @param ofdt
+     * @param ofdt ofdt
      * @return OffsetDateTime
      */
     public static OffsetDateTime convertFromLocaltoUTC(OffsetDateTime ofdt) {
@@ -88,7 +88,7 @@ public class DateConverter {
 
     /**
      * Function to convert offsetdatetime to a readable format
-     * @param ofdt
+     * @param ofdt ofdt
      * @return String
      */
     public static String readableDateFormat(OffsetDateTime ofdt) {

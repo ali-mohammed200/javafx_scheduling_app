@@ -10,9 +10,9 @@ public class Contacts {
 
     /**
      * Contacts Constructor
-     * @param contactID
-     * @param contactName
-     * @param email
+     * @param contactID contactID
+     * @param contactName contactName
+     * @param email email
      */
     public Contacts(int contactID, String contactName, String email) {
         this.contactID = contactID;
@@ -30,7 +30,7 @@ public class Contacts {
 
     /**
      * Function to set contactID
-     * @param contactID
+     * @param contactID contactID
      */
     public void setContactID(int contactID) {
         this.contactID = contactID;
@@ -46,7 +46,7 @@ public class Contacts {
 
     /**
      * Function to set contactName
-     * @param contactName
+     * @param contactName contactName
      */
     public void setContactName(String contactName) {
         this.contactName = contactName;
@@ -62,7 +62,7 @@ public class Contacts {
 
     /**
      * Function to set email
-     * @param email
+     * @param email email
      */
     public void setEmail(String email) {
         this.email = email;

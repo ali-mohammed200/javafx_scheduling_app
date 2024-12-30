@@ -87,8 +87,8 @@ public class LoginController implements Initializable {
 
     /**
      * Function to enter the application after successful login
-     * @param currentUser
-     * @throws IOException
+     * @param currentUser currentUser
+     * @throws IOException IOException
      */
     protected void enterApplication(Users currentUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
@@ -103,8 +103,8 @@ public class LoginController implements Initializable {
     /**
      * Function to log login attempts
      * - logs are stored in login_activity.txt
-     * @param user
-     * @param attempt
+     * @param user user
+     * @param attempt attempt
      */
     private void logAttempt(String user, String attempt) {
         String fileName = "login_activity.txt";
@@ -145,8 +145,8 @@ public class LoginController implements Initializable {
     /**
      * Overrides the initialize method of the Initializable interface
      * Sets Welcome Message based on locale in login screen
-     * @param url
-     * @param resourceBundle
+     * @param url url
+     * @param resourceBundle resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

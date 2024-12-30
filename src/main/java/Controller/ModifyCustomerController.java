@@ -54,7 +54,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Function to set a customer for editing
-     * @param selectedCustomer
+     * @param selectedCustomer selectedCustomer
      */
     public static void setCustomer(Customers selectedCustomer) {
         System.out.println(customer);
@@ -63,7 +63,7 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Function to return an ObservableList of Countries
-     * @return ObservableList<Countries>
+     * @return ObservableList Countries
      */
     public static ObservableList<Countries> countryList() {
         try {
@@ -76,7 +76,8 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Function to return an ObservableList of FirstLevelDivisions
-     * @return ObservableList<FirstLevelDivisions>
+     * @return ObservableList FirstLevelDivisions
+     * @param id id
      */
     public static ObservableList<FirstLevelDivisions> fdlListByCountry(int id) {
         try {
@@ -90,7 +91,7 @@ public class ModifyCustomerController implements Initializable {
     /**
      * Event Handler when clicking on country dropdown
      * to populate related FirstLevelDivision dropdown
-     * @param actionEvent
+     * @param actionEvent actionEvent
      */
     @FXML
     private void onCountryAction(ActionEvent actionEvent) {
@@ -102,9 +103,9 @@ public class ModifyCustomerController implements Initializable {
     /**
      * Event Handler for saving an edited customer
      * - Validates Inputs
-     * @param actionEvent
-     * @throws SQLException
-     * @throws IOException
+     * @param actionEvent actionEvent
+     * @throws SQLException SQLException
+     * @throws IOException IOException
      */
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
@@ -155,8 +156,8 @@ public class ModifyCustomerController implements Initializable {
 
     /**
      * Event Handler for canceling customer creation
-     * @param actionEvent
-     * @throws IOException
+     * @param actionEvent actionEvent
+     * @throws IOException IOException
      */
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
@@ -173,8 +174,8 @@ public class ModifyCustomerController implements Initializable {
     /**
      * Overrides the initialize method of the Initializable interface
      *  sets data on the screen for modification
-     * @param url
-     * @param resourceBundle
+     * @param url url
+     * @param resourceBundle resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

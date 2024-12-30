@@ -16,13 +16,13 @@ public class Users {
 
     /**
      * Users Constructor
-     * @param userID
-     * @param userName
-     * @param password
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
+     * @param userID userID
+     * @param userName userName
+     * @param password password
+     * @param createDate createDate
+     * @param createdBy createdBy
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public Users(int userID, String userName, String password, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy) {
         this.userID = userID;
@@ -36,8 +36,8 @@ public class Users {
 
     /**
      * Users Constructor
-     * @param userID
-     * @param userName
+     * @param userID userID
+     * @param userName userName
      */
     public Users(int userID, String userName) {
         this.userID = userID;
@@ -54,7 +54,7 @@ public class Users {
 
     /**
      * Function to set userID
-     * @param userID
+     * @param userID userID
      */
     public void setUserID(int userID) {
         this.userID = userID;
@@ -70,7 +70,7 @@ public class Users {
 
     /**
      * Function to set userName
-     * @param userName
+     * @param userName userName
      */
     public void setUserName(String userName) {
         this.userName = userName;
@@ -86,7 +86,7 @@ public class Users {
 
     /**
      * Function to set password
-     * @param password
+     * @param password password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -102,7 +102,7 @@ public class Users {
 
     /**
      * Function to set createDate
-     * @param createDate
+     * @param createDate createDate
      */
     public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
@@ -118,7 +118,7 @@ public class Users {
 
     /**
      * Function to set createdBy
-     * @param createdBy
+     * @param createdBy createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -134,7 +134,7 @@ public class Users {
 
     /**
      * Function to set lastUpdate
-     * @param lastUpdate
+     * @param lastUpdate lastUpdate
      */
     public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -150,7 +150,7 @@ public class Users {
 
     /**
      * Function to set lastUpdatedBy
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;

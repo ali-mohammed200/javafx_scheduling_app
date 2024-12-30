@@ -37,17 +37,17 @@ public class Appointments {
 
     /**
      * Appointments Constructor
-     * @param appointmentID
-     * @param title
-     * @param description
-     * @param location
-     * @param type
-     * @param start
-     * @param end
-     * @param user
-     * @param customerId
-     * @param userId
-     * @param contactId
+     * @param appointmentID appointmentID
+     * @param title title
+     * @param description description
+     * @param location location
+     * @param type type
+     * @param start start
+     * @param end end
+     * @param user user
+     * @param customerId customerId
+     * @param userId userId
+     * @param contactId contactId
      */
     public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, Users user, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
@@ -68,16 +68,16 @@ public class Appointments {
 
     /**
      * Appointments Constructor
-     * @param appointmentID
-     * @param title
-     * @param description
-     * @param location
-     * @param type
-     * @param start
-     * @param end
-     * @param customerId
-     * @param userId
-     * @param contactId
+     * @param appointmentID appointmentID
+     * @param title title
+     * @param description description
+     * @param location location
+     * @param type type
+     * @param start start
+     * @param end end
+     * @param customerId customerId
+     * @param userId userId
+     * @param contactId contactId
      */
     public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
@@ -94,20 +94,20 @@ public class Appointments {
 
     /**
      * Appointments Constructor
-     * @param appointmentID
-     * @param title
-     * @param description
-     * @param location
-     * @param type
-     * @param start
-     * @param end
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
-     * @param customerId
-     * @param userId
-     * @param contactId
+     * @param appointmentID appointmentID
+     * @param title title
+     * @param description description
+     * @param location location
+     * @param type type
+     * @param start start
+     * @param end end
+     * @param createDate createDate
+     * @param createdBy createdBy
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
+     * @param customerId customerId
+     * @param userId userId
+     * @param contactId contactId
      */
     public Appointments(int appointmentID, String title, String description, String location, String type, OffsetDateTime start, OffsetDateTime end, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int customerId, int userId, int contactId) {
         this.appointmentID = appointmentID;
@@ -128,7 +128,7 @@ public class Appointments {
 
     /**
      * Function to get all appointments
-     * @return FilteredList<Appointments>
+     * @return FilteredList Appointments
      */
     public static FilteredList<Appointments> getAllAppointments() {
         return allAppointments;
@@ -136,7 +136,7 @@ public class Appointments {
 
     /**
      * Function to set appointments
-     * @param appointments
+     * @param appointments appointments
      */
     public static void setAllAppointments(ObservableList<Appointments> appointments) {
         allAppointments = new FilteredList<>(appointments);
@@ -146,7 +146,7 @@ public class Appointments {
      * Function to filter the appointment list
      * A lambda is used to take each appointment in the list and filter to the
      * appointments that match the criteria
-     * @return Predicate<Appointments>
+     * @return Predicate Appointments
      */
     public static Predicate<Appointments> getAppointmentsWithin15Minutes() {
         Predicate<Appointments> within15 = i -> isWithin15Min(i.getUserId(), i.getStart());
@@ -157,7 +157,7 @@ public class Appointments {
      * Function to filter the appointment list
      * A lambda is used to take each appointment in the list and filter to the
      * appointments that match the criteria
-     * @return Predicate<Appointments>
+     * @return Predicate Appointments
      */
     public static Predicate<Appointments> getCurrentWeekAppointments() {
         Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
@@ -168,7 +168,7 @@ public class Appointments {
      * Function to filter the appointment list
      * A lambda is used to take each appointment in the list and filter to the
      * appointments that match the criteria
-     * @return Predicate<Appointments>
+     * @return Predicate Appointments
      */
     public static Predicate<Appointments> getCurrentMonthAppointments() {
         Predicate<Appointments> withinMonth = i -> isInCurrentMonth(i.getStart());
@@ -177,8 +177,8 @@ public class Appointments {
 
     /**
      * Function to check an appointment if it is within 15 minutes
-     * @param userID
-     * @param dateTime
+     * @param userID userID
+     * @param dateTime dateTime
      * @return boolean
      */
     public static boolean isWithin15Min(int userID, OffsetDateTime dateTime) {
@@ -188,7 +188,7 @@ public class Appointments {
 
     /**
      * Function to check an appointment if it is within the current week
-     * @param dateTime
+     * @param dateTime dateTime
      * @return boolean
      */
     public static boolean isInCurrentWeek(OffsetDateTime dateTime) {
@@ -200,7 +200,7 @@ public class Appointments {
 
     /**
      * Function to check an appointment if it is within the current month
-     * @param dateTime
+     * @param dateTime dateTime
      * @return boolean
      */
     public static boolean isInCurrentMonth(OffsetDateTime dateTime) {
@@ -220,7 +220,7 @@ public class Appointments {
 
     /**
      * Function to set the appointment
-     * @param appointmentID
+     * @param appointmentID appointmentID
      */
     public void setAppointmentID(int appointmentID) {
         this.appointmentID = appointmentID;
@@ -236,7 +236,7 @@ public class Appointments {
 
     /**
      * Function to set title
-     * @param title
+     * @param title title
      */
     public void setTitle(String title) {
         this.title = title;
@@ -252,7 +252,7 @@ public class Appointments {
 
     /**
      * Function to set description
-     * @param description
+     * @param description description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -268,7 +268,7 @@ public class Appointments {
 
     /**
      * Function to set location
-     * @param location
+     * @param location location
      */
     public void setLocation(String location) {
         this.location = location;
@@ -284,7 +284,7 @@ public class Appointments {
 
     /**
      * Function to set type
-     * @param type
+     * @param type type
      */
     public void setType(String type) {
         this.type = type;
@@ -300,7 +300,7 @@ public class Appointments {
 
     /**
      * Function to set start
-     * @param start
+     * @param start start
      */
     public void setStart(OffsetDateTime start) {
         this.start = start;
@@ -316,7 +316,7 @@ public class Appointments {
 
     /**
      * Function to set end
-     * @param end
+     * @param end end
      */
     public void setEnd(OffsetDateTime end) {
         this.end = end;
@@ -348,7 +348,7 @@ public class Appointments {
 
     /**
      * Function to set createDate
-     * @param createDate
+     * @param createDate createDate
      */
     public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
@@ -364,7 +364,7 @@ public class Appointments {
 
     /**
      * Function to set createdBy
-     * @param createdBy
+     * @param createdBy createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -380,7 +380,7 @@ public class Appointments {
 
     /**
      * Function to set lastUpdate
-     * @param lastUpdate
+     * @param lastUpdate lastUpdate
      */
     public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -396,7 +396,7 @@ public class Appointments {
 
     /**
      * Function to set lastUpdatedBy
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
@@ -412,7 +412,7 @@ public class Appointments {
 
     /**
      * Function to set customerId
-     * @param customerId
+     * @param customerId customerId
      */
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
@@ -428,7 +428,7 @@ public class Appointments {
 
     /**
      * Function to set userId
-     * @param userId
+     * @param userId userId
      */
     public void setUserId(int userId) {
         this.userId = userId;
@@ -444,7 +444,7 @@ public class Appointments {
 
     /**
      * Function to set contactId
-     * @param contactId
+     * @param contactId contactId
      */
     public void setContactId(int contactId) {
         this.contactId = contactId;
@@ -460,7 +460,7 @@ public class Appointments {
 
     /**
      * Function to set contacts
-     * @param contacts
+     * @param contacts contacts
      */
     public void setContacts(Contacts contacts) {
         this.contacts = contacts;

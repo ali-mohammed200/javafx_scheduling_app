@@ -12,7 +12,7 @@ public class CountryAccessObject {
     /**
      * Function to get all countries from the database
      * @return ResultSet
-     * @throws SQLException
+     * @throws SQLException SQLException
      */
     public static ResultSet getCountries() throws SQLException {
         String query = "SELECT * FROM countries";

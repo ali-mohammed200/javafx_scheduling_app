@@ -17,13 +17,13 @@ public class FirstLevelDivisions {
 
     /**
      * FirstLevelDivisions Constructor
-     * @param divisionId
-     * @param divisionName
-     * @param createDate
-     * @param createdBy
-     * @param lastUpdate
-     * @param lastUpdatedBy
-     * @param countryId
+     * @param divisionId divisionId
+     * @param divisionName divisionName
+     * @param createDate createDate
+     * @param createdBy createdBy
+     * @param lastUpdate lastUpdate
+     * @param lastUpdatedBy lastUpdatedBy
+     * @param countryId countryId
      */
     public FirstLevelDivisions(int divisionId, String divisionName, OffsetDateTime createDate, String createdBy, OffsetDateTime lastUpdate, String lastUpdatedBy, int countryId) {
         this.divisionId = divisionId;
@@ -37,9 +37,9 @@ public class FirstLevelDivisions {
 
     /**
      * FirstLevelDivisions Constructor
-     * @param divisionId
-     * @param divisionName
-     * @param countryId
+     * @param divisionId divisionId
+     * @param divisionName divisionName
+     * @param countryId countryId
      */
     public FirstLevelDivisions(int divisionId, String divisionName, int countryId) {
         this.divisionId = divisionId;
@@ -57,7 +57,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set divisionId
-     * @param divisionId
+     * @param divisionId divisionId
      */
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
@@ -73,7 +73,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set divisionName
-     * @param divisionName
+     * @param divisionName divisionName
      */
     public void setDivisionName(String divisionName) {
         this.divisionName = divisionName;
@@ -89,7 +89,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set createDate
-     * @param createDate
+     * @param createDate createDate
      */
     public void setCreateDate(OffsetDateTime createDate) {
         this.createDate = createDate;
@@ -105,7 +105,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set createdBy
-     * @param createdBy
+     * @param createdBy createdBy
      */
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
@@ -121,7 +121,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set lastUpdate
-     * @param lastUpdate
+     * @param lastUpdate lastUpdate
      */
     public void setLastUpdate(OffsetDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
@@ -137,7 +137,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set lastUpdatedBy
-     * @param lastUpdatedBy
+     * @param lastUpdatedBy lastUpdatedBy
      */
     public void setLastUpdatedBy(String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
@@ -153,7 +153,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set countryId
-     * @param countryId
+     * @param countryId countryId
      */
     public void setCountryId(int countryId) {
         this.countryId = countryId;
@@ -169,7 +169,7 @@ public class FirstLevelDivisions {
 
     /**
      * Function to set country
-     * @param country
+     * @param country country
      */
     public void setCountry(Countries country) {
         this.country = country;

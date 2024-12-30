@@ -3,6 +3,7 @@ package Controller;
 import DAO.AppointmentAccessObject;
 import DAO.CustomerAccessObject;
 import DAO.DatabaseConnecter;
+import Helper.DateConverter;
 import Helper.RStoObjectMapper;
 import Model.Appointments;
 import Model.Customers;
@@ -13,7 +14,9 @@ import javafx.animation.Transition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +27,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,6 +35,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -128,6 +135,13 @@ public class MainController implements Initializable {
     private Button deleteApptButton;
     @FXML
     private Label apptWarning;
+
+    @FXML private Text greetingLabel;
+    @FXML private Text apptsLabel;
+
+    @FXML private TableView upcomingApptTable;
+    @FXML private TableColumn upcomingApptTableID;
+    @FXML private TableColumn<Appointments, String>  upcomingApptTableStart;
 
     private static Users currentUser;
 
@@ -302,8 +316,15 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectionModel = tabPane.getSelectionModel();
 
+        String welcomeText = "Welcome " + getCurrentUser().getUserName() + "!";
+        welcomeText += "\n\nAt this moment, it is " + DateConverter.readableDateFormat(OffsetDateTime.now(ZoneId.systemDefault()));
+        greetingLabel.setText(welcomeText);
         customerTable.setPlaceholder(new Label("No customers to show"));
         apptTable.setPlaceholder(new Label("No appointments to show"));
+
+        upcomingApptTable.setPlaceholder(new Label("No upcoming appointments for you to show"));
+        upcomingApptTableID.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
+        upcomingApptTableStart.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().formattedStart()));
 
         customerTable.setItems(customerList());
 
@@ -331,6 +352,10 @@ public class MainController implements Initializable {
         cApptContactId.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         cApptContactName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getContactName()));
         cApptContactEmail.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContacts().getEmail()));
+
+        FilteredList<Appointments> filteredList = new FilteredList<> (FXCollections.observableList(Appointments.getAllAppointments()));
+        upcomingApptTable.setItems(filteredList);
+        filteredList.setPredicate(Appointments.getAppointmentsWithin15Minutes());
 
         weekButton.setToggleGroup(group);
         monthButton.setToggleGroup(group);

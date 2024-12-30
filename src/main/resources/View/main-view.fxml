@@ -24,7 +24,17 @@
         <tabs>
             <Tab fx:id="mainTab" text="Main">
               <content>
-                <AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                <AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Text fx:id="greetingLabel" layoutX="21.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="420.13675689697266" />
+                        <Text fx:id="apptsLabel" layoutX="152.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upcoming Appointments within 15 minutes" wrappingWidth="420.13675689697266" />
+                        <TableView fx:id="upcomingApptTable" layoutX="152.0" layoutY="119.0" prefHeight="200.0" prefWidth="470.0">
+                           <columns>
+                              <TableColumn fx:id="upcomingApptTableID" prefWidth="83.33334541320801" text="ID" />
+                              <TableColumn fx:id="upcomingApptTableStart" prefWidth="381.3333511352539" text="Start" />
+                           </columns>
+                        </TableView>
+                     </children></AnchorPane>
               </content>
             </Tab>
           <Tab fx:id="customerTab" text="Customers">

@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.MainController;
 import Helper.DateConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,16 +24,11 @@ public class Appointments {
     public static FilteredList<Appointments> getAllAppointments() {
         return allAppointments;
     }
-//    FilteredList<LogTest> items = new FilteredList<>(originalItems);
-// tableView.setItems(items);
-//
-// ... on update of filter UI items
-//    Predicate<LogTest> containsFoo = i -> i.getName().contains("foo");
-//    Predicate<LogTest> isSevere = i -> i.getLevel() == Level.SEVERE;
-//    Predicate<LogTest> filter = containsFoo.or(isSevere);
-//
-// items.setPredicate(filter);
 
+    public static Predicate<Appointments> getAppointmentsWithin15Minutes() {
+        Predicate<Appointments> within15 = i -> isWithin15Min(i.getUserId(), i.getStart());
+        return within15;
+    }
     public static Predicate<Appointments> getCurrentWeekAppointments() {
         Predicate<Appointments> withinWeek = i -> isInCurrentWeek(i.getStart());
         return withinWeek;
@@ -40,6 +36,16 @@ public class Appointments {
     public static Predicate<Appointments> getCurrentMonthAppointments() {
         Predicate<Appointments> withinMonth = i -> isInCurrentMonth(i.getStart());
         return withinMonth;
+    }
+
+    public static boolean isWithin15Min(int userID, OffsetDateTime dateTime) {
+        // Get the current date and time in the system default time zone
+        OffsetDateTime now = OffsetDateTime.now(ZoneId.systemDefault());
+        System.out.println(ZoneId.systemDefault());
+        System.out.println(now);
+
+        // Check if the given date is within the current week
+        return !dateTime.isBefore(now) && !dateTime.isAfter(now.plusMinutes(15)) && userID == MainController.getCurrentUser().getUserID();
     }
 
     public static boolean isInCurrentWeek(OffsetDateTime dateTime) {

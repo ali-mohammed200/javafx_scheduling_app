@@ -1,6 +1,7 @@
 package Controller;
 
 import DAO.UserAccessObject;
+import Helper.DateConverter;
 import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.event.ActionEvent;
@@ -15,10 +16,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 import java.time.ZonedDateTime;
 import java.util.TimeZone;
@@ -45,6 +50,8 @@ public class LoginController implements Initializable {
         String username = UserNameInput.getText();
         String password = PasswordInput.getText();
 
+        logAttempt(username, "attempted");
+
         if (username.length() == 0 || password.length() == 0){
             ErrorBox.setText(resourceBundle.getString("loginInputsEmpty"));
             return;
@@ -55,6 +62,7 @@ public class LoginController implements Initializable {
 
             if (!rs.isBeforeFirst() ) {
                 ErrorBox.setText(resourceBundle.getString("incorrect"));
+                logAttempt(username, "failed attempt");
                 System.out.println("Invalid Login");
                 return;
             }
@@ -66,6 +74,7 @@ public class LoginController implements Initializable {
                 System.out.println(userName);
                 currentUser = new Users(userId, userName);
             }
+            logAttempt(username, "success");
             enterApplication(currentUser);
         } catch (SQLException | IOException e){
             e.printStackTrace();
@@ -80,6 +89,31 @@ public class LoginController implements Initializable {
         stage.setTitle("Scheduling Application - Main");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void logAttempt(String user, String attempt){
+        String fileName = "login_activity.txt";
+        File file = new File(fileName);
+        String header = "Timestamp, username, attempt\n";
+        if(user.length() == 0){
+            user = "<blank>";
+        }
+        String textToLog = DateConverter.readableDateFormat(OffsetDateTime.now(ZoneId.systemDefault())) + ", " + user + ", " + attempt + "\n";
+
+        if(file.exists()){
+            try (FileWriter writer = new FileWriter(file, true)) {
+                writer.write(textToLog);
+            } catch (IOException e) {
+                System.out.println("Error writing login attempt: " + e.getMessage());
+            }
+        } else {
+            try (FileWriter writer = new FileWriter(file, true)) {
+                writer.write(header);
+                writer.write(textToLog);
+            } catch (IOException e) {
+                System.out.println("Error writing login attempt: " + e.getMessage());
+            }
+        }
     }
 
     @FXML

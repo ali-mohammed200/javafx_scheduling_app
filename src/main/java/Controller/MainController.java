@@ -39,8 +39,19 @@ import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
 
+/**
+ * MainController is used to handle the main logic of the application
+ * - Customer Management
+ * - Appointment Management
+ * - Viewing reports
+ *
+ * Lamdas are used in this file in the initialize method
+ * They are used to set nested data in the tableview cells
+ * Example:
+ * - Country and FirstLevelDivision Data on the Customers Model
+ * - Contact Data on Appointments Model
+ */
 public class MainController implements Initializable {
-
     private static Users currentUser;
     private final ToggleGroup group = new ToggleGroup();
     @FXML
@@ -124,14 +135,26 @@ public class MainController implements Initializable {
     @FXML
     private Text reports3Text;
 
+    /**
+     * Function to get CurrentUser
+     * @return Users
+     */
     public static Users getCurrentUser() {
         return currentUser;
     }
 
+    /**
+     * Function to set CurrentUser
+     * @param user
+     */
     public static void setCurrentUser(Users user) {
         currentUser = user;
     }
 
+    /**
+     * Function to return an ObservableList of Customers
+     * @return ObservableList<Customers>
+     */
     public static ObservableList<Customers> customerList() {
         try {
             ResultSet rs = CustomerAccessObject.getAllCustomersWithFDLData();
@@ -141,6 +164,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Function to return an ObservableList of Appointments
+     * @return ObservableList<Appointments>
+     */
     public static ObservableList<Appointments> apptList() {
         try {
             ResultSet rs = AppointmentAccessObject.getAllAppointmentsWithContacts();
@@ -151,10 +178,19 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Function to set the active tab
+     * @param tab
+     */
     public void setActiveTab(int tab) {
         selectionModel.select(tab);
     }
 
+    /**
+     * Event Handler to open Add Customer Form
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void onAddCustomer(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/add-customer-view.fxml"));
@@ -165,6 +201,11 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Event Handler to open Modify Customer Form
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void onModifyCustomer(ActionEvent event) throws IOException {
         Customers selectedCustomer = (Customers) customerTable.getSelectionModel().getSelectedItem();
@@ -185,6 +226,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Function which sets a warning animation on a label
+     * fades after 2 seconds
+     * @param warning
+     * @param label
+     */
     @FXML
     protected void setWarningLabel(String warning, Label label) {
         label.setText(warning);
@@ -205,6 +252,12 @@ public class MainController implements Initializable {
         animation.play();
     }
 
+    /**
+     * Event Handler for deleting a customer
+     * Loads an alert modal for confirmation
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     protected void onDeleteCustomer(ActionEvent event) throws SQLException {
         Customers selectedCustomer = (Customers) customerTable.getSelectionModel().getSelectedItem();
@@ -227,6 +280,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Event handler to exit the application
+     * Closes the database connection
+     * @param event
+     */
     @FXML
     protected void onExitApplication(ActionEvent event) {
         DatabaseConnecter.closeConnection();
@@ -234,6 +292,11 @@ public class MainController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Event Handler to open Modify Appointment Form
+     * @param event
+     * @throws IOException
+     */
     public void onModifyAppointment(ActionEvent event) throws IOException {
         Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
         if (selectedAppointment != null) {
@@ -252,6 +315,12 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Event Handler for deleting an appointment
+     * Loads an alert modal for confirmation
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void onDeleteAppointment(ActionEvent actionEvent) throws SQLException {
         Appointments selectedAppointment = (Appointments) apptTable.getSelectionModel().getSelectedItem();
         if (selectedAppointment != null) {
@@ -272,6 +341,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /**
+     * Event Handler to open Add Appointment Form
+     * @param event
+     * @throws IOException
+     */
     @FXML
     protected void onAddAppointment(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/add-appointment-view.fxml"));
@@ -283,6 +357,24 @@ public class MainController implements Initializable {
     }
 
 
+    /**
+     * Overrides the initialize method of the Initializable interface
+     * - Sets data for the tables on the screen
+     * - Sets welcome message and current timestamp
+     * - Sets toggle actions for filtering appointments
+     * - Sets reports
+     *
+     * Lambas are used here:
+     * They are used to set nested data in the tableview cells
+     * Example:
+     * - Country and FirstLevelDivision Data on the Customers Model for the CustomersTable
+     * - Contact Data on Appointments Model for the AppointmentsTable
+     * - The filteredLists also use a lambda
+     * @see "src/main/java/Model/Appointments.java"
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         selectionModel = tabPane.getSelectionModel();

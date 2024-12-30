@@ -8,7 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 
+/**
+ * AppointmentAccessObject used to access data in the appointments table
+ */
 public class AppointmentAccessObject {
+    /**
+     * Function to get all appointments with contacts from the database
+     * @return ResultSet
+     * @throws SQLException
+     */
     public static ResultSet getAllAppointmentsWithContacts() throws SQLException {
         String query = "SELECT * FROM appointments " + "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n";
 
@@ -19,6 +27,17 @@ public class AppointmentAccessObject {
         return result;
     }
 
+    /**
+     * Function to check appointment overlaps
+     * If an appointmentID is less than 1, it is not used in the sql query
+     * Valid appointmentID is passed in ModifyAppointmentController
+     * @param appointmentID
+     * @param start
+     * @param end
+     * @param Customer_ID
+     * @return ResultSet
+     * @throws SQLException
+     */
     public static ResultSet getAppointmentByOverlap(int appointmentID, OffsetDateTime start, OffsetDateTime end, Integer Customer_ID) throws SQLException {
         String query = "SELECT * FROM appointments WHERE Customer_ID = ? ";
         query += "AND ((Start BETWEEN ? AND ?) OR (End BETWEEN ? AND ?) OR (Start < ? AND End > ?))";
@@ -46,6 +65,12 @@ public class AppointmentAccessObject {
         return result;
     }
 
+    /**
+     * Function to create an appointment in the database
+     * @param appt
+     * @return int
+     * @throws SQLException
+     */
     public static int createAppointment(Appointments appt) throws SQLException {
         String query = "INSERT INTO appointments ";
         query += " (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By,  Customer_ID, User_ID, Contact_ID) ";
@@ -71,6 +96,12 @@ public class AppointmentAccessObject {
         return st.executeUpdate();
     }
 
+    /**
+     * Function to update an appointment in the database
+     * @param appt
+     * @return int
+     * @throws SQLException
+     */
     public static int updateAppointment(Appointments appt) throws SQLException {
         String query = "UPDATE appointments SET ";
         query += "Title = ?, Description = ?, Location = ?, ";
@@ -98,6 +129,12 @@ public class AppointmentAccessObject {
         return st.executeUpdate();
     }
 
+    /**
+     * Function to delete an appointment in the database
+     * @param apptID
+     * @return int
+     * @throws SQLException
+     */
     public static int deleteAppointment(int apptID) throws SQLException {
         String query = "DELETE FROM appointments WHERE Appointment_ID = ?";
         Connection conn = DatabaseConnecter.getConnection();

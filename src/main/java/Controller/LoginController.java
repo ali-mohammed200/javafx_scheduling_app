@@ -25,6 +25,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * LoginController is used to manage logging in and logging attempts
+ */
 public class LoginController implements Initializable {
     private Users currentUser;
     @FXML
@@ -39,9 +42,13 @@ public class LoginController implements Initializable {
     private Label TimeZoneBox;
     @FXML
     private Label ErrorBox;
-
     private ResourceBundle resourceBundle;
 
+    /**
+     * Event handler when clicking login button
+     * - Checks database
+     * - logs each attempt and if it was successful or not
+     */
     @FXML
     protected void onLoginButtonClick() {
         String username = UserNameInput.getText();
@@ -78,6 +85,11 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Function to enter the application after successful login
+     * @param currentUser
+     * @throws IOException
+     */
     protected void enterApplication(Users currentUser) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
         MainController.setCurrentUser(currentUser);
@@ -88,6 +100,12 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Function to log login attempts
+     * - logs are stored in login_activity.txt
+     * @param user
+     * @param attempt
+     */
     private void logAttempt(String user, String attempt) {
         String fileName = "login_activity.txt";
         File file = new File(fileName);
@@ -113,6 +131,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Event handler to exit the application
+     */
     @FXML
     protected void onExitButtonClick() {
         System.out.println("Exit");
@@ -121,6 +142,12 @@ public class LoginController implements Initializable {
     }
 
 
+    /**
+     * Overrides the initialize method of the Initializable interface
+     * Sets Welcome Message based on locale in login screen
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resourceBundle = resourceBundle;

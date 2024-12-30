@@ -28,6 +28,9 @@ import java.sql.SQLException;
 import java.time.OffsetDateTime;
 import java.util.ResourceBundle;
 
+/**
+ * ModifyCustomerController is used to manage Editing Customers
+ */
 public class ModifyCustomerController implements Initializable {
     private static Customers customer;
     @FXML
@@ -49,11 +52,19 @@ public class ModifyCustomerController implements Initializable {
     @FXML
     private Label warningLabel;
 
+    /**
+     * Function to set a customer for editing
+     * @param selectedCustomer
+     */
     public static void setCustomer(Customers selectedCustomer) {
         System.out.println(customer);
         customer = selectedCustomer;
     }
 
+    /**
+     * Function to return an ObservableList of Countries
+     * @return ObservableList<Countries>
+     */
     public static ObservableList<Countries> countryList() {
         try {
             ResultSet rs = CountryAccessObject.getCountries();
@@ -63,6 +74,10 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Function to return an ObservableList of FirstLevelDivisions
+     * @return ObservableList<FirstLevelDivisions>
+     */
     public static ObservableList<FirstLevelDivisions> fdlListByCountry(int id) {
         try {
             ResultSet rs = FirstLevelDivisionAccessObject.getFirstLevelDivisionsByCountry(id);
@@ -72,6 +87,11 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Event Handler when clicking on country dropdown
+     * to populate related FirstLevelDivision dropdown
+     * @param actionEvent
+     */
     @FXML
     private void onCountryAction(ActionEvent actionEvent) {
         System.out.println(dropDownCountry.getValue());
@@ -79,6 +99,13 @@ public class ModifyCustomerController implements Initializable {
         dropDownDivision.setItems(fdlListByCountry(country.getCountryID()));
     }
 
+    /**
+     * Event Handler for saving an edited customer
+     * - Validates Inputs
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
         String warning = "";
@@ -126,6 +153,11 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
+    /**
+     * Event Handler for canceling customer creation
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
@@ -138,6 +170,12 @@ public class ModifyCustomerController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Overrides the initialize method of the Initializable interface
+     *  sets data on the screen for modification
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(customer);

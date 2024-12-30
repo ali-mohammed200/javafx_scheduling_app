@@ -32,6 +32,9 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * AddAppointmentController is used to manage Adding Appointments
+ */
 public class AddAppointmentController implements Initializable {
     @FXML
     private Stage stage;
@@ -68,6 +71,10 @@ public class AddAppointmentController implements Initializable {
     @FXML
     private TextField inputCustomerID;
 
+    /**
+     * Function to return an ObservableList of Contacts
+     * @return ObservableList<Contacts>
+     */
     public static ObservableList<Contacts> contactList() {
         try {
             ResultSet rs = ContactAccessObject.getContacts();
@@ -79,6 +86,12 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Function to return an ObservableList of Integers 1-12 (Hours)
+     * in String format.
+     * Example -> 01, 02, 03, 04... 12
+     * @return ObservableList<String>
+     */
     public static ObservableList<String> getHours() {
         ObservableList<String> hours = FXCollections.observableArrayList(new ArrayList<String>());
         for (int i = 1; i <= 12; i++) {
@@ -87,6 +100,12 @@ public class AddAppointmentController implements Initializable {
         return hours;
     }
 
+    /**
+     * Function to return an ObservableList of Integers 1-60 (Minutes)
+     * in String format.
+     * Example -> 01, 02, 03, 04... 60
+     * @return ObservableList<String>
+     */
     public static ObservableList<String> getMinutes() {
 //      https://stackoverflow.com/questions/19933499/how-to-print-the-integer-00-instead-of-java-printing-0
         ObservableList<String> minutes = FXCollections.observableArrayList(new ArrayList<String>());
@@ -96,10 +115,26 @@ public class AddAppointmentController implements Initializable {
         return minutes;
     }
 
+    /**
+     * Function to return an ObservableList of Strings
+     * AM/PM (ante meridiem and post meridiem time unit)
+     * @return ObservableList<String>
+     */
     public static ObservableList<String> getTimeUnits() {
         return FXCollections.observableArrayList("AM", "PM");
     }
 
+    /**
+     * Event handler for saving a new appointment
+     * - Validates Inputs
+     * - Validates Start and End
+     *      - Start Must be before End
+     *      - Start and End must be within business hours EST 8am -10pm Weekdays
+     *      - Must not overlap with other appointments
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     private void onSave(ActionEvent actionEvent) throws SQLException, IOException {
         String warning = "";
@@ -230,6 +265,11 @@ public class AddAppointmentController implements Initializable {
         }
     }
 
+    /**
+     * Event Handler for canceling appointment creation
+     * @param actionEvent
+     * @throws IOException
+     */
     @FXML
     private void onCancel(ActionEvent actionEvent) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/main-view.fxml"));
@@ -242,6 +282,12 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Overrides the initialize method of the Initializable interface
+     * sets dropdown data on the screen
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dropDownContact.setItems(contactList());

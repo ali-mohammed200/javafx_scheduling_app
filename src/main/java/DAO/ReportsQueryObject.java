@@ -8,7 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.OffsetDateTime;
 
+/**
+ * ReportsQueryObject is used to access the database for running report queries
+ */
 public class ReportsQueryObject {
+    /**
+     * Function to get total number of customer appointments by type and month
+     * The resultset is converted within the same function as opposed to
+     * the other Database Access Objects which use the RStoObjectMapper
+     * @return String
+     * @throws SQLException
+     */
     public static String getReport1() throws SQLException {
         String query = "SELECT Monthname(Start) Month, Type, COUNT(*) Count FROM appointments GROUP BY Monthname(Start), Type;";
         Connection conn = DatabaseConnecter.getConnection();
@@ -24,6 +34,13 @@ public class ReportsQueryObject {
         return report;
     }
 
+    /**
+     * Function to get the schedule for each contact in the organization
+     * The resultset is converted within the same function as opposed to
+     * the other Database Access Objects which use the RStoObjectMapper
+     * @return String
+     * @throws SQLException
+     */
     public static String getReport2() throws SQLException {
         String query = "SELECT * FROM appointments\n" + "LEFT JOIN contacts ON appointments.Contact_ID = contacts.Contact_ID\n" + "ORDER BY appointments.Contact_ID ASC, start ASC;";
         Connection conn = DatabaseConnecter.getConnection();
@@ -59,6 +76,13 @@ public class ReportsQueryObject {
         return report;
     }
 
+    /**
+     * Function to get customer counts by country
+     * The resultset is converted within the same function as opposed to
+     * the other Database Access Objects which use the RStoObjectMapper
+     * @return String
+     * @throws SQLException
+     */
     public static String getReport3() throws SQLException {
         String query = "SELECT Country, Count(*) Count FROM customers\n" + "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" + "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID\n" + "GROUP BY Country;";
         Connection conn = DatabaseConnecter.getConnection();

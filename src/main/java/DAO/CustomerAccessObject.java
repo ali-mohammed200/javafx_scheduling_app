@@ -1,38 +1,17 @@
 package DAO;
 
-import Helper.DateConverter;
 import Model.Customers;
 
-import java.sql.*;
-import java.time.format.DateTimeFormatter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CustomerAccessObject {
-    public static ResultSet getAllCustomers() throws SQLException {
-        String query = "SELECT * FROM customers";
-        Connection conn = DatabaseConnecter.getConnection();
-        PreparedStatement st = conn.prepareStatement(query);
-        ResultSet result = st.executeQuery();
-
-        return result;
-    }
-
     public static ResultSet getAllCustomersWithFDLData() throws SQLException {
-        String query = "SELECT * FROM customers\n" +
-                "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" +
-                "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID;";
+        String query = "SELECT * FROM customers\n" + "LEFT JOIN first_level_divisions ON customers.Division_ID = first_level_divisions.Division_ID\n" + "LEFT JOIN countries ON first_level_divisions.Country_ID = countries.Country_ID;";
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
-        ResultSet result = st.executeQuery();
-
-        return result;
-    }
-
-
-    public static ResultSet getCustomer(int customerID) throws SQLException {
-        String query = "SELECT * FROM customers WHERE Customer_ID = ?";
-        Connection conn = DatabaseConnecter.getConnection();
-        PreparedStatement st = conn.prepareStatement(query);
-        st.setInt(1, customerID);
         ResultSet result = st.executeQuery();
 
         return result;
@@ -89,5 +68,4 @@ public class CustomerAccessObject {
         st.setInt(1, customerID);
         return st.executeUpdate();
     }
-
 }

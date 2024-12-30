@@ -1,11 +1,13 @@
 package DAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseConnecter {
-    private static String username = "root"; // These credentials should be in an env file
-    private static String password = "Password123";
-    private static String url = "jdbc:mysql://localhost:3306/client_schedule?connectionTimeZone=UTC";
+    private static final String username = "root";
+    private static final String password = "Password123";
+    private static final String url = "jdbc:mysql://localhost:3306/client_schedule?connectionTimeZone=UTC";
     private static Connection connection = null;
 
     public static Connection getConnection() {

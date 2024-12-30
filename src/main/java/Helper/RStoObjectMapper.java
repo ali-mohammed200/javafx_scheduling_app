@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
@@ -47,9 +46,6 @@ public class RStoObjectMapper {
 
     public static ObservableList<Appointments> rsToApptList(ResultSet rs) throws SQLException {
         ObservableList<Appointments> appointments = FXCollections.observableArrayList(new ArrayList<Appointments>());
-//        Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date,
-//                Created_By, Last_Update, Last_Updated_By, Customer_ID,
-//                User_ID, Contact_ID, Contact_ID, Contact_Name, Email
         while (rs.next()) {
             System.out.println("\ndb\n");
 
@@ -120,10 +116,5 @@ public class RStoObjectMapper {
         return contacts;
     }
 }
-//Customer_ID, Customer_Name, Address, Postal_Code, Phone,
-//Create_Date, Created_By, Last_Update, Last_Updated_By,
-//Division_ID, Division_ID, Division, Create_Date, Created_By,
-//Last_Update, Last_Updated_By, Country_ID, Country_ID, Country,
-//Create_Date, Created_By, Last_Update, Last_Updated_By
 
 

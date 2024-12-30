@@ -4,9 +4,9 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public class DateConverter {
-    private static ZoneId zoneId = ZoneId.systemDefault();
-    private static ZonedDateTime zdt = ZonedDateTime.now(zoneId);
-    private static ZoneOffset z_offset = zdt.getOffset();
+    private static final ZoneId zoneId = ZoneId.systemDefault();
+    private static final ZonedDateTime zdt = ZonedDateTime.now(zoneId);
+    private static final ZoneOffset z_offset = zdt.getOffset();
 
     public static Boolean withinBusinessHours(OffsetDateTime odt) {
         OffsetDateTime estOdt = odt.toInstant().atOffset(ZoneOffset.of("-05:00")); // EST
@@ -23,7 +23,8 @@ public class DateConverter {
         System.out.println("estTime local" + time);
         return validTime && validDay;
     }
-    public static String buildTimeString(String hour, String min, String unit){
+
+    public static String buildTimeString(String hour, String min, String unit) {
         Integer intHour = Integer.parseInt(hour);
         if (intHour == 12 && unit == "AM") {
             hour = "00";
@@ -34,7 +35,8 @@ public class DateConverter {
         }
         return hour + ":" + min + ":" + "00";
     }
-    public static OffsetDateTime buildOffsetDateTimeObject(String timeString, LocalDate localDate){
+
+    public static OffsetDateTime buildOffsetDateTimeObject(String timeString, LocalDate localDate) {
         LocalTime localTime = LocalTime.parse(timeString);
         LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
         ZonedDateTime now = ZonedDateTime.now();
@@ -43,70 +45,17 @@ public class DateConverter {
 
         return offsetDateTime;
     }
-    public static OffsetDateTime convertFromUTCtoLocal(OffsetDateTime ofdt){
+
+    public static OffsetDateTime convertFromUTCtoLocal(OffsetDateTime ofdt) {
         return ofdt.toInstant().atOffset(z_offset);
     }
 
 
-    public static OffsetDateTime convertFromLocaltoUTC(OffsetDateTime ofdt){
+    public static OffsetDateTime convertFromLocaltoUTC(OffsetDateTime ofdt) {
         return ofdt.toInstant().atOffset(ZoneOffset.of("+00:00"));
     }
 
-    public static String formatForTimestamp(OffsetDateTime ofdt) {
-        return ofdt.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-    }
-
-    public static String readableDateFormat(OffsetDateTime ofdt){
+    public static String readableDateFormat(OffsetDateTime ofdt) {
         return ofdt.format((DateTimeFormatter.ofPattern("MM/dd/yyyy hh:mm a")));
     }
-
-    public static void main(String[] args){
-        String t = buildTimeString("05", "30", "PM");
-        LocalDate localDate = LocalDate.of(2024, 12, 21);
-        System.out.println(buildOffsetDateTimeObject(t, localDate));
-
-
-        System.out.println(OffsetDateTime.now());
-        System.out.println(OffsetDateTime.now().toInstant().atOffset(ZoneOffset.of("+00:00")));
-        System.out.println(ZoneOffset.of("+00:00"));
-        System.out.println(formatForTimestamp(convertFromLocaltoUTC(OffsetDateTime.now())));
-        System.out.println(formatForTimestamp(OffsetDateTime.now()));
-        System.out.println(formatForTimestamp(convertFromUTCtoLocal(OffsetDateTime.now())));
-    }
 }
-
-
-
-//        System.out.println(OffsetDateTime.now().toString());
-//
-//        System.out.println(zdt);
-//
-//        OffsetDateTime ts = rs.getObject("Create_Date", OffsetDateTime.class);
-//        System.out.println(ts.toInstant().atOffset(z_offset));
-
-//        import java.time.LocalDate;
-//import java.time.LocalTime;
-//import java.time.LocalDateTime;
-//import java.time.OffsetDateTime;
-//import java.time.ZoneOffset;
-//
-//        public class Main {
-//            public static void main(String[] args) {
-//                // Example LocalDate and String
-//                LocalDate localDate = LocalDate.of(2024, 12, 21); // Your LocalDate
-//                String timeString = "14:30:00"; // Your time string (e.g., HH:mm:ss)
-//
-//                // Parse the string into LocalTime
-//                LocalTime localTime = LocalTime.parse(timeString);
-//
-//                // Combine LocalDate and LocalTime into LocalDateTime
-//                LocalDateTime localDateTime = LocalDateTime.of(localDate, localTime);
-//
-//                // Use a ZoneOffset to create OffsetDateTime
-//                ZoneOffset offset = ZoneOffset.of("+00:00"); // Change as needed
-//                OffsetDateTime offsetDateTime = OffsetDateTime.of(localDateTime, offset);
-//
-//                // Print the result
-//                System.out.println("OffsetDateTime: " + offsetDateTime);
-//            }
-//        }

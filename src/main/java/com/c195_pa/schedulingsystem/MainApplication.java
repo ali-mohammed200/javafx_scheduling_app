@@ -18,8 +18,7 @@ public class MainApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-//        TODO: Test locale and check if we can switch locals
-        Locale currentLocale = new Locale("en");
+        Locale currentLocale = Locale.getDefault();
         ResourceBundle localizationBundle = ResourceBundle.getBundle("login", currentLocale);
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/View/login-view.fxml"));
         fxmlLoader.setResources(localizationBundle);

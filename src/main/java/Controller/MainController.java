@@ -272,6 +272,7 @@ public class MainController implements Initializable {
                 setWarningLabel(selectedCustomer.getCustomerName() + " has been deleted!", custWarning);
                 customerTable.setItems(customerList());
                 apptTable.setItems(apptList());
+                refreshReports();
             } else {
                 setWarningLabel("Not Deleted", custWarning);
             }
@@ -333,12 +334,23 @@ public class MainController implements Initializable {
                 AppointmentAccessObject.deleteAppointment(selectedAppointment.getAppointmentID());
                 setWarningLabel(selectedAppointment.getAppointmentID() + " - " + selectedAppointment.getType() + " has been deleted!", apptWarning);
                 apptTable.setItems(apptList());
+                refreshReports();
             } else {
                 setWarningLabel("Appointment Not Deleted", apptWarning);
             }
         } else {
             setWarningLabel("No appointment selected", apptWarning);
         }
+    }
+
+    /**
+     * Fetches reports from the database and sets the reports
+     * @throws SQLException SQLException
+     */
+    private void refreshReports() throws SQLException {
+        reports1Text.setText(ReportsQueryObject.getReport1());
+        reports2Text.setText(ReportsQueryObject.getReport2());
+        reports3Text.setText(ReportsQueryObject.getReport3());
     }
 
     /**
@@ -440,9 +452,7 @@ public class MainController implements Initializable {
         });
 
         try {
-            reports1Text.setText(ReportsQueryObject.getReport1());
-            reports2Text.setText(ReportsQueryObject.getReport2());
-            reports3Text.setText(ReportsQueryObject.getReport3());
+            refreshReports();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

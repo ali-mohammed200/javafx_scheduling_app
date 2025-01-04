@@ -92,6 +92,27 @@ public class CustomerAccessObject {
         Connection conn = DatabaseConnecter.getConnection();
         PreparedStatement st = conn.prepareStatement(query);
         st.setInt(1, customerID);
-        return st.executeUpdate();
+        int response = st.executeUpdate();
+        if(response == 0){ // Nothing was deleted since they had no appts, so just delete the customer
+            response = deleteCustomer(customerID);
+        }
+        System.out.println("deleted response value " + response);
+        return response;
+    }
+
+    /**
+     * Function to delete a customer in the database
+     * @param customerID customerID
+     * @return int
+     * @throws SQLException SQLException
+     */
+    public static int deleteCustomer(int customerID) throws SQLException {
+        String query = "DELETE FROM customers WHERE Customer_ID = ?";
+        System.out.println(query);
+        Connection conn = DatabaseConnecter.getConnection();
+        PreparedStatement st = conn.prepareStatement(query);
+        st.setInt(1, customerID);
+        int response = st.executeUpdate();
+        return response;
     }
 }

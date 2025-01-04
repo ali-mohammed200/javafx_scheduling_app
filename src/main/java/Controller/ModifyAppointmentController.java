@@ -242,7 +242,7 @@ public class ModifyAppointmentController implements Initializable {
         OffsetDateTime odtEndLocal = DateConverter.buildOffsetDateTimeObject(stringEndTime, endDateValue);
 
         if (!DateConverter.withinBusinessHours(odtStartLocal) || !DateConverter.withinBusinessHours(odtEndLocal)) {
-            warning += "Time(s) are not within business hours: 8am - 10pm (Weekdays). ";
+            warning += "Time(s) are not within business hours: 8am - 10pm EST (Weekdays). ";
         }
 
         OffsetDateTime odtStartUTC = DateConverter.convertFromLocaltoUTC(odtStartLocal);

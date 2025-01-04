@@ -11,6 +11,11 @@ public class DatabaseConnecter {
     private static final String username = "root";
     private static final String password = "Password123";
     private static final String url = "jdbc:mysql://localhost:3306/client_schedule?connectionTimeZone=UTC";
+
+    private static final String labUsername = "sqlUser";
+    private static final String labPassword = "Passw0rd!";
+    private static final String labUrl = "jdbc:mysql://localhost/client_schedule?connectionTimeZone = SERVER";
+
     private static Connection connection = null;
 
     /**
@@ -27,7 +32,8 @@ public class DatabaseConnecter {
      */
     public static void setConnection() {
         try {
-            DatabaseConnecter.connection = DriverManager.getConnection(url, username, password);
+//            DatabaseConnecter.connection = DriverManager.getConnection(url, username, password); // Local
+            DatabaseConnecter.connection = DriverManager.getConnection(labUrl, labUsername, labPassword); // Lab
         } catch (SQLException e) {
             e.printStackTrace();
         }

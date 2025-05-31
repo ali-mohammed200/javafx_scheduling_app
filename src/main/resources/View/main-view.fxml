@@ -165,6 +165,7 @@
                               </Tab>
                           </tabs>
                         </TabPane>
+                        <Label fx:id="reportTimeLabel" layoutX="344.0" layoutY="5.0" prefHeight="17.0" prefWidth="328.0" text="Date Generated:" />
                      </children>
                   </AnchorPane>
               </content>

@@ -32,8 +32,8 @@ public class DatabaseConnecter {
      */
     public static void setConnection() {
         try {
-//            DatabaseConnecter.connection = DriverManager.getConnection(url, username, password); // Local
-            DatabaseConnecter.connection = DriverManager.getConnection(labUrl, labUsername, labPassword); // Lab
+            DatabaseConnecter.connection = DriverManager.getConnection(url, username, password); // Local
+//            DatabaseConnecter.connection = DriverManager.getConnection(labUrl, labUsername, labPassword); // Lab
         } catch (SQLException e) {
             e.printStackTrace();
         }

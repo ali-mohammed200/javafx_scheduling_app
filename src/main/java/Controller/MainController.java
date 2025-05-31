@@ -38,6 +38,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.ResourceBundle;
@@ -141,6 +143,8 @@ public class MainController implements Initializable {
     private Text reports3Text;
     @FXML
     private TextField customerSearchBar;
+    @FXML
+    private Label reportTimeLabel;
 
     /**
      * Function to get CurrentUser
@@ -359,6 +363,7 @@ public class MainController implements Initializable {
      * @throws SQLException SQLException
      */
     private void refreshReports() throws SQLException {
+        reportTimeLabel.setText("Date Generated: " + LocalDateTime.now());
         reports1Text.setText(ReportsQueryObject.getReport1());
         reports2Text.setText(ReportsQueryObject.getReport2());
         reports3Text.setText(ReportsQueryObject.getReport3());

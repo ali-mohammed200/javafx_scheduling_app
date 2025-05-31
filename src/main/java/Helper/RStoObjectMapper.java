@@ -38,16 +38,25 @@ public class RStoObjectMapper {
             int countryID = rs.getInt("Country_ID");
             String countryName = rs.getString("Country");
 
-            Customers customer = new Customers(cust_id, cust_name, cust_address, cust_postalCode, cust_phone, cust_divisionID);
             FirstLevelDivisions firstLevelDivision = new FirstLevelDivisions(fdl_divisionID, fdl_division, fdl_countryID);
             Countries country = new Countries(countryID, countryName);
 
             firstLevelDivision.setCountry(country);
-            customer.setFirstLevelDivision(firstLevelDivision);
 
-            System.out.println(customer);
+            if ("UK".equals(country.getCountryName())) {
+                Customers customer = new PremiumCustomers(cust_id, cust_name, cust_address, cust_postalCode, cust_phone, cust_divisionID);
+                PremiumCustomers premiumCustomer = (PremiumCustomers) customer;
 
-            customers.add(customer);
+                premiumCustomer.setFirstLevelDivision(firstLevelDivision);
+                System.out.println(premiumCustomer);
+                customers.add(premiumCustomer);
+            } else {
+                Customers customer = new Customers(cust_id, cust_name, cust_address, cust_postalCode, cust_phone, cust_divisionID);
+
+                customer.setFirstLevelDivision(firstLevelDivision);
+                System.out.println(customer);
+                customers.add(customer);
+            }
         }
 
         return customers;

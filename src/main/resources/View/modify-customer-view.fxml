@@ -5,8 +5,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="353.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyCustomerController">
+<AnchorPane fx:id="anchorPane" prefHeight="353.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModifyCustomerController">
   <children>
     <Label layoutX="38.0" layoutY="26.0" text="ID" />
     <TextField fx:id="inputID" editable="false" layoutX="131.0" layoutY="22.0" prefHeight="25.0" prefWidth="204.0" promptText="Auto-generated" />
@@ -25,5 +27,11 @@
     <Button fx:id="saveButton" layoutX="328.0" layoutY="275.0" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="64.0" text="Save" />
     <Button fx:id="cancelButton" layoutX="328.0" layoutY="313.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="73.0" text="Cancel" />
       <Label fx:id="warningLabel" layoutX="14.0" layoutY="250.0" prefHeight="92.0" prefWidth="311.0" wrapText="true" />
+      <Circle fx:id="statusIcon" fill="#1fff47" layoutX="386.0" layoutY="35.0" radius="21.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label fx:id="statusLabel" contentDisplay="CENTER" layoutX="354.0" layoutY="-19.0" prefHeight="107.0" prefWidth="63.0" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+         <font>
+            <Font name="Century Schoolbook Italic" size="24.0" />
+         </font>
+      </Label>
   </children>
 </AnchorPane>

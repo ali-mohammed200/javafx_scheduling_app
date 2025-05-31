@@ -1,22 +1,31 @@
 package Model;
 
+import Controller.MainController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.function.Predicate;
 
 /**
  * Customers Model
  */
 public class Customers {
-    private FirstLevelDivisions firstLevelDivision;
-    private int customerId;
-    private String customerName;
-    private String address;
-    private String postalCode;
-    private String phone;
-    private OffsetDateTime createDate;
-    private String createdBy;
-    private OffsetDateTime lastUpdate;
-    private String lastUpdatedBy;
-    private int divisionId;
+    protected FirstLevelDivisions firstLevelDivision;
+    protected int customerId;
+    protected String customerName;
+    protected String address;
+    protected String postalCode;
+    protected String phone;
+    protected OffsetDateTime createDate;
+    protected String createdBy;
+    protected OffsetDateTime lastUpdate;
+    protected String lastUpdatedBy;
+    protected int divisionId;
+    private static FilteredList<Customers> allCustomers = new FilteredList<>(FXCollections.observableList(new ArrayList<Customers>()));
 
     /**
      * Customers Constructor
@@ -80,6 +89,47 @@ public class Customers {
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
         this.divisionId = divisionId;
+    }
+
+    /**
+     * Function to get all Customers
+     * @return FilteredList Customers
+     */
+    public static FilteredList<Customers> getAllCustomers() {
+        return allCustomers;
+    }
+
+    /**
+     * Function to set Customers
+     * @param customers Customers
+     */
+    public static void setAllCustomers(ObservableList<Customers> customers) {
+        allCustomers = new FilteredList<>(customers);
+    }
+
+    /**
+     * Function to filter the customer list
+     * A lambda is used to take each customer in the list and filter to the
+     * customer that match the criteria
+     * @param cusId
+     * @return
+     */
+    public static Predicate<Customers> getSearchCustomersByID(Integer cusId) {
+        Predicate<Customers> found = i -> i.getCustomerId() == cusId;
+        return found;
+    }
+
+
+    /**
+     * Function to filter the customer list
+     * A lambda is used to take each customer in the list and filter to the
+     * customer that match the criteria
+     * @param cusName
+     * @return
+     */
+    public static Predicate<Customers> getSearchCustomersByName(String cusName) {
+        Predicate<Customers> found = i -> i.getCustomerName().toLowerCase().contains(cusName.toLowerCase()) ;
+        return found;
     }
 
     /**
@@ -257,6 +307,14 @@ public class Customers {
      */
     public void setFirstLevelDivision(FirstLevelDivisions firstLevelDivision) {
         this.firstLevelDivision = firstLevelDivision;
+    }
+
+    /**
+     * Function to get preferredGreeting
+     * @return String
+     */
+    public String getPreferredGreeting(){
+        return "What's up!";
     }
 
     /**

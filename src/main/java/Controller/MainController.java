@@ -8,10 +8,12 @@ import Helper.DateConverter;
 import Helper.RStoObjectMapper;
 import Model.Appointments;
 import Model.Customers;
+import Model.PremiumCustomers;
 import Model.Users;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -26,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,6 +73,8 @@ public class MainController implements Initializable {
     private TableColumn cId;
     @FXML
     private TableColumn cName;
+    @FXML
+    private TableColumn<Customers, String> cGreeting;
     @FXML
     private TableColumn cAddress;
     @FXML
@@ -134,6 +139,8 @@ public class MainController implements Initializable {
     private Text reports2Text;
     @FXML
     private Text reports3Text;
+    @FXML
+    private TextField customerSearchBar;
 
     /**
      * Function to get CurrentUser
@@ -158,7 +165,10 @@ public class MainController implements Initializable {
     public static ObservableList<Customers> customerList() {
         try {
             ResultSet rs = CustomerAccessObject.getAllCustomersWithFDLData();
-            return RStoObjectMapper.rsToCustomerList(rs);
+
+            Customers.setAllCustomers(RStoObjectMapper.rsToCustomerList(rs));
+            return Customers.getAllCustomers();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -270,6 +280,7 @@ public class MainController implements Initializable {
             if (alert.showAndWait().get() == ButtonType.OK) {
                 CustomerAccessObject.deleteCustomerWithAppts(selectedCustomer.getCustomerId());
                 setWarningLabel(selectedCustomer.getCustomerName() + " has been deleted!", custWarning);
+                customerSearchBar.setText("");
                 customerTable.setItems(customerList());
                 apptTable.setItems(apptList());
                 refreshReports();
@@ -368,6 +379,20 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    protected void onSearchCustomer(KeyEvent keyEvent) {
+        String searchTerm = customerSearchBar.getText();
+        boolean isNumeric = searchTerm.chars().allMatch(Character::isDigit);
+        if (isNumeric && searchTerm != "") {
+            Integer id = Integer.parseInt(searchTerm);
+            Customers.getAllCustomers().setPredicate(Customers.getSearchCustomersByID(id));
+        } else if (!isNumeric && searchTerm != "") {
+            Customers.getAllCustomers().setPredicate(Customers.getSearchCustomersByName(searchTerm));
+        } else {
+            Customers.getAllCustomers().setPredicate(null);
+        }
+    }
+
 
     /**
      * Overrides the initialize method of the Initializable interface
@@ -406,6 +431,18 @@ public class MainController implements Initializable {
 
         cId.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         cName.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        cGreeting.setCellValueFactory(cellData -> {
+            Customers cust = cellData.getValue();
+
+            String value;
+            if (cust instanceof PremiumCustomers) {
+                value = ((PremiumCustomers) cust).getPreferredGreeting();
+            } else {
+                value = cust.getPreferredGreeting();
+            }
+
+            return new ReadOnlyStringWrapper(value);
+        });
         cAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
         cPostalCode.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         cPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));

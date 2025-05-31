@@ -4,10 +4,7 @@ import DAO.CountryAccessObject;
 import DAO.CustomerAccessObject;
 import DAO.FirstLevelDivisionAccessObject;
 import Helper.RStoObjectMapper;
-import Model.Countries;
-import Model.Customers;
-import Model.FirstLevelDivisions;
-import Model.Users;
+import Model.*;
 import com.c195_pa.schedulingsystem.MainApplication;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +36,8 @@ public class ModifyCustomerController implements Initializable {
     @FXML
     private Stage stage;
     @FXML
+    private AnchorPane anchorPane;
+    @FXML
     private TextField inputID;
     @FXML
     private TextField inputName;
@@ -51,6 +53,10 @@ public class ModifyCustomerController implements Initializable {
     private ComboBox dropDownDivision;
     @FXML
     private Label warningLabel;
+    @FXML
+    private Circle statusIcon;
+    @FXML
+    private Label statusLabel;
 
     /**
      * Function to set a customer for editing
@@ -190,5 +196,14 @@ public class ModifyCustomerController implements Initializable {
         dropDownCountry.setValue(country);
         dropDownDivision.setItems(fdlListByCountry(country.getCountryID()));
         dropDownDivision.setValue(customer.getFirstLevelDivision());
+
+        if (customer instanceof PremiumCustomers) {
+            statusIcon.setFill(Color.YELLOW);
+            statusLabel.setText("Premium");
+            anchorPane.setStyle("-fx-background-color: #ffffcc;");
+        } else {
+            statusLabel.setText("Regular");
+            anchorPane.setStyle("-fx-background-color: #ddffd9;");
+        }
     }
 }

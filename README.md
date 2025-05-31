@@ -1,3 +1,4 @@
+C868 Capstone
 C195 WGU PA
 Mohammad Ali
 
@@ -30,9 +31,10 @@ Java SDK Version: Java 17 Oracle OpenJDK version 17.0.9
 JavaFX version compatible with JDK version: JavaFX-SDK-17.0.6
 MySQL Connector driver version number: mysql-connector-j-8.0.33
 
-MYSQL Virtual Machine URL: https://lrps.wgu.edu/provision/289188806
+MYSQL WGU Virtual Machine URL: https://lrps.wgu.edu/provision/289188806
 
 JavaDocs are located in the JavaDocs folder within the root of the application
+This project utilizes the WGU virtual machine environment.
 
 How to run the program:
 - Open IntelliJ

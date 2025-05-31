@@ -1,3 +1,4 @@
+C868 Capstone
 C195 WGU PA
 Mohammad Ali
 
@@ -22,7 +23,7 @@ GC: G1 Young Generation, G1 Old Generation
 Memory: 2048M
 Cores: 8
 Registry:
-  ide.experimental.ui=true
+ide.experimental.ui=true
 Kotlin: 233.13135.103-IJ
 
 
@@ -30,9 +31,10 @@ Java SDK Version: Java 17 Oracle OpenJDK version 17.0.9
 JavaFX version compatible with JDK version: JavaFX-SDK-17.0.6
 MySQL Connector driver version number: mysql-connector-j-8.0.33
 
-MYSQL Virtual Machine URL: https://lrps.wgu.edu/provision/289188806
+MYSQL WGU Virtual Machine URL: https://lrps.wgu.edu/provision/289188806
 
 JavaDocs are located in the JavaDocs folder within the root of the application
+This project utilizes the WGU virtual machine environment.
 
 How to run the program:
 - Open IntelliJ
@@ -49,8 +51,8 @@ The report retrieves the total number of customers based on country. This allows
 they can focus on for growth.
 
 Example:
-Country  |  Count
+- Country  |  Count
 -----------------
-US           10
-Canada       3
-UK           7
+- US       |   10
+- Canada   |    3
+- UK       |    7
